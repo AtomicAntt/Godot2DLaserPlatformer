@@ -7,3 +7,4 @@ C:\Users\Mikki\Desktop\ConsequenceGameJam\.mono\temp\obj\Debug\Consequence.Assem
 C:\Users\Mikki\Desktop\ConsequenceGameJam\.mono\temp\obj\Debug\Consequence.csproj.CoreCompileInputs.cache
 C:\Users\Mikki\Desktop\ConsequenceGameJam\.mono\temp\obj\Debug\Consequence.dll
 C:\Users\Mikki\Desktop\ConsequenceGameJam\.mono\temp\obj\Debug\Consequence.pdb
+C:\Users\Mikki\Desktop\ConsequenceGameJam\.mono\temp\obj\Debug\Consequence.sourcelink.json
