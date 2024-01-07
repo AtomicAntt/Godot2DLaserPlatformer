@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://GameObjects/Laser.cs" type="Script" id=1]
+[ext_resource path="res://GameAssets/laserCrossSection.png" type="Texture" id=2]
+
+[node name="Laser" type="Node2D"]
+visible = false
+script = ExtResource( 1 )
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+enabled = true
+cast_to = Vector2( -2000, 0 )
+
+[node name="Position2D" type="Position2D" parent="."]
+
+[node name="Line2D" type="Line2D" parent="."]
+width = 0.0
+default_color = Color( 1, 1, 1, 1 )
+texture = ExtResource( 2 )
+texture_mode = 1

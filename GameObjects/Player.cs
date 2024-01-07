@@ -7,17 +7,20 @@ public class Player : KinematicBody2D
 
     [Export]
     public States state = States.AIR;
-
     [Export]
     public Vector2 velocity = Vector2.Zero;
+
+    private Laser _laser;
 
     private const int _Speed = 330;
     private const int _Gravity = 1300;
     private const int _Jump = -600;
+    private const int _Laser_Radius = 30;
+
     
     public override void _Ready()
     {
-        
+        _laser = GetNode<Laser>("Laser");
     }
 
     public void GetHorizontalMovement()
@@ -42,9 +45,34 @@ public class Player : KinematicBody2D
         velocity.y += _Gravity * delta;
     }
 
+    public void moveLaserToMouse()
+    {
+        Vector2 mouseToDirection = (GetGlobalMousePosition() - GlobalPosition).Normalized();
+        _laser.Position = (mouseToDirection * _Laser_Radius);
+        _laser.LookAt(GlobalPosition);
+    }
+
+    public void manageLaserShooting()
+    {
+        if (Input.IsActionJustPressed("leftclick"))
+        {
+            // _laser.Visible = true;
+            // _laser.laserShooting = true;
+            _laser.toggleLaserShooting(true);
+        }
+        else if (Input.IsActionJustReleased("leftclick"))
+        {
+            // _laser.laserShooting = false;
+            // _laser.Visible = false;
+            _laser.toggleLaserShooting(false);
+        }
+    }
+
     public override void _PhysicsProcess(float delta)
     {
         velocity = MoveAndSlide(velocity, Vector2.Up);
+        moveLaserToMouse();
+        manageLaserShooting();
         switch(state)
         {
             case States.AIR:
@@ -72,4 +100,6 @@ public class Player : KinematicBody2D
 
         }
     }
+
+
 }
