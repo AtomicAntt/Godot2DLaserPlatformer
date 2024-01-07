@@ -6,7 +6,8 @@ public class Laser : Node2D
     [Export]
     public float laserWidth = 100.0f;
 
-    private RayCast2D _rayCast;
+    // private RayCast2D _rayCast;
+    private Node2D _rayCasts;
     private Line2D _laser;
     private Position2D _endPos;
 
@@ -14,12 +15,13 @@ public class Laser : Node2D
 
     public override void _Ready()
     {
-        _rayCast = GetNode<RayCast2D>("RayCast2D");
+        // _rayCast = GetNode<RayCast2D>("RayCast2D");
         _laser = GetNode<Line2D>("Line2D");
         _endPos = GetNode<Position2D>("Position2D");
+        _rayCasts = GetNode<Node2D>("RayCasts");
 
         _laser.AddPoint(Vector2.Zero);
-        _laser.AddPoint(_rayCast.CastTo);
+        _laser.AddPoint(Vector2.Zero);
     }
 
     public void toggleLaserShooting(bool isShooting)
@@ -56,17 +58,27 @@ public class Laser : Node2D
     {
         if (_laserShooting)
         {
+            bool colliding = false;
+
             _laser.SetPointPosition(0, Vector2.Zero);
-            if (_rayCast.IsColliding())
+
+            foreach (RayCast2D rayCast in _rayCasts.GetChildren())
             {
-                _endPos.GlobalPosition = _rayCast.GetCollisionPoint();
-                destroyTiles(_rayCast.GetCollisionPoint());
+                if (rayCast.IsColliding())
+                {
+                    colliding = true;
+                    // _endPos.GlobalPosition = rayCast.GetCollisionPoint();
+                    // Purpose of normalized vector being added: Need to go deeper to register as in that tile, not just the one right outside it.
+                    destroyTiles(rayCast.GetCollisionPoint() + (rayCast.GetCollisionPoint() - GlobalPosition).Normalized());
+                }
             }
-            else
-            {
-                _endPos.GlobalPosition = _rayCast.CastTo;
-            }
-         _laser.SetPointPosition(1, _endPos.Position);
+            // if (!colliding)
+            // {
+                // _endPos.GlobalPosition = _rayCast.CastTo;
+            _endPos.GlobalPosition = GlobalPosition + (GetGlobalMousePosition() - GlobalPosition).Normalized() * 2000;
+            // }
+
+            _laser.SetPointPosition(1, _endPos.Position);
         }
     }
 }
