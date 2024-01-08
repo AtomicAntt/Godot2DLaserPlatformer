@@ -4,12 +4,13 @@ using System;
 public class Laser : Node2D
 {
     [Export]
-    public float laserWidth = 100.0f;
+    public float laserWidth = 96.0f;
 
     // private RayCast2D _rayCast;
     private Node2D _rayCasts;
     private Line2D _laser;
     private Position2D _endPos;
+    private Sprite _startLaser;
     // private Player _player;
 
     private bool _laserShooting = false;
@@ -20,6 +21,7 @@ public class Laser : Node2D
         _laser = GetNode<Line2D>("Line2D");
         _endPos = GetNode<Position2D>("Position2D");
         _rayCasts = GetNode<Node2D>("RayCasts");
+        _startLaser = GetNode<Sprite>("StartLaser");
         // _player = GetParent() as Player;
 
         _laser.AddPoint(Vector2.Zero);
@@ -31,13 +33,14 @@ public class Laser : Node2D
         SceneTreeTween tween = GetTree().CreateTween();
         if (isShooting)
         {
-            Visible = true;
-            _laserShooting = true;
+            startLaser();
             tween.TweenProperty(_laser, "width", laserWidth, 0.1f);
+            tween.Parallel().TweenProperty(_startLaser, "scale", new Vector2(1.0f, _startLaser.Scale.y), 0.1f);
         }
         else
         {
             tween.TweenProperty(_laser, "width", 0.0f, 0.2f);
+            tween.Parallel().TweenProperty(_startLaser, "scale", new Vector2(0.0f, _startLaser.Scale.y), 0.2f);
             tween.Connect("finished", this, "stopLaser");
 
         }
@@ -45,9 +48,16 @@ public class Laser : Node2D
 
     public void stopLaser()
     {
-        GD.Print("Laser has been stopped");
+        _startLaser.Visible = false;
         Visible = false;
         _laserShooting = false;
+    }
+
+    public void startLaser()
+    {
+        _startLaser.Visible = true;
+        Visible = true;
+        _laserShooting = true;
     }
 
     public void destroyTiles(Vector2 destroyPos)
