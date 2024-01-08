@@ -10,6 +10,7 @@ public class Laser : Node2D
     private Node2D _rayCasts;
     private Line2D _laser;
     private Position2D _endPos;
+    // private Player _player;
 
     private bool _laserShooting = false;
 
@@ -19,6 +20,7 @@ public class Laser : Node2D
         _laser = GetNode<Line2D>("Line2D");
         _endPos = GetNode<Position2D>("Position2D");
         _rayCasts = GetNode<Node2D>("RayCasts");
+        // _player = GetParent() as Player;
 
         _laser.AddPoint(Vector2.Zero);
         _laser.AddPoint(Vector2.Zero);
@@ -58,7 +60,7 @@ public class Laser : Node2D
     {
         if (_laserShooting)
         {
-            bool colliding = false;
+            // bool colliding = false;
 
             _laser.SetPointPosition(0, Vector2.Zero);
 
@@ -66,7 +68,7 @@ public class Laser : Node2D
             {
                 if (rayCast.IsColliding())
                 {
-                    colliding = true;
+                    // colliding = true;
                     // _endPos.GlobalPosition = rayCast.GetCollisionPoint();
                     // Purpose of normalized vector being added: Need to go deeper to register as in that tile, not just the one right outside it.
                     destroyTiles(rayCast.GetCollisionPoint() + (rayCast.GetCollisionPoint() - GlobalPosition).Normalized());

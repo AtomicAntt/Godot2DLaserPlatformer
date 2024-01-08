@@ -16,6 +16,9 @@ public class Player : KinematicBody2D
     private const int _Gravity = 1300;
     private const int _Jump = -600;
     private const int _Laser_Radius = 30;
+    private const int _Recoil = 400;
+
+    private bool _shootingLaser = false;
 
     
     public override void _Ready()
@@ -58,12 +61,14 @@ public class Player : KinematicBody2D
         {
             // _laser.Visible = true;
             // _laser.laserShooting = true;
+            _shootingLaser = true;
             _laser.toggleLaserShooting(true);
         }
         else if (Input.IsActionJustReleased("leftclick"))
         {
             // _laser.laserShooting = false;
             // _laser.Visible = false;
+            _shootingLaser = false;
             _laser.toggleLaserShooting(false);
         }
     }
@@ -98,6 +103,11 @@ public class Player : KinematicBody2D
             case States.DEAD:
                 break;
 
+        }
+
+        if (_shootingLaser)
+        {
+            velocity -= (_laser.GlobalPosition - GlobalPosition).Normalized() * _Recoil;
         }
     }
 
