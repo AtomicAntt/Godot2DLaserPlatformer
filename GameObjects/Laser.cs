@@ -11,7 +11,7 @@ public class Laser : Node2D
     private Line2D _laser;
     private Position2D _endPos;
     private Sprite _startLaser;
-    // private Player _player;
+    private Player _player;
 
     public bool laserShooting = false;
 
@@ -22,7 +22,7 @@ public class Laser : Node2D
         _endPos = GetNode<Position2D>("Position2D");
         _rayCasts = GetNode<Node2D>("RayCasts");
         _startLaser = GetNode<Sprite>("StartLaser");
-        // _player = GetParent() as Player;
+        _player = GetParent() as Player;
 
         _laser.AddPoint(Vector2.Zero);
         _laser.AddPoint(Vector2.Zero);
@@ -90,7 +90,10 @@ public class Laser : Node2D
             // if (!colliding)
             // {
                 // _endPos.GlobalPosition = _rayCast.CastTo;
-            _endPos.GlobalPosition = GlobalPosition + (GetGlobalMousePosition() - GlobalPosition).Normalized() * 2000;
+
+            // _endPos.GlobalPosition = GlobalPosition + (GetGlobalMousePosition() - GlobalPosition).Normalized() * 2000;
+            _endPos.GlobalPosition = GlobalPosition + (GlobalPosition - _player.GlobalPosition).Normalized() * 2000;
+
             // }
 
             _laser.SetPointPosition(1, _endPos.Position);

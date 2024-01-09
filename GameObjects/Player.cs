@@ -111,6 +111,34 @@ public class Player : KinematicBody2D
 
     }
 
+    public void ManageDirection(string fireOrRecoil)
+    {
+        // GD.Print(GlobalPosition.DirectionTo(GetGlobalMousePosition()));
+        double yDirectionTo = GlobalPosition.DirectionTo(GetGlobalMousePosition()).y;
+
+        if (yDirectionTo >= -1 && yDirectionTo <= -0.6) 
+        {
+            _sprite.Play(fireOrRecoil + "Up");
+        }
+        else if (yDirectionTo > -0.6 && yDirectionTo <= -0.2)
+        {
+            _sprite.Play(fireOrRecoil + "DiagonalUp");
+        }
+        else if (yDirectionTo > -0.2 && yDirectionTo <= 0.2)
+        {
+            _sprite.Play(fireOrRecoil);
+        }
+        else if (yDirectionTo > 0.2 && yDirectionTo <= 0.6)
+        {
+            _sprite.Play(fireOrRecoil + "DiagonalDown");
+        }
+        else if (yDirectionTo > 0.6 && yDirectionTo <= 1)
+        {
+            _sprite.Play(fireOrRecoil + "Down");
+        }
+
+    }
+
     public void SetFalling()
     {
         _sprite.Play("Fall");
@@ -182,11 +210,13 @@ public class Player : KinematicBody2D
             case States.CHARGING:
                 GetHorizontalMovement();
                 FaceTowardsMouse(); // After horizontal movement to override the flip
+                ManageDirection("Fire");
                 Fall(delta); // this may be fine?
                 break;
             case States.SHOOTING:
                 GetHorizontalMovement();
                 FaceTowardsMouse(); // After horizontal movement to override the flip
+                ManageDirection("Recoil");
                 Fall(delta); // this may be fine?
                 velocity -= (_laser.GlobalPosition - GlobalPosition).Normalized() * _Recoil;
                 break;
