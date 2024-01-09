@@ -13,7 +13,7 @@ public class Laser : Node2D
     private Sprite _startLaser;
     // private Player _player;
 
-    private bool _laserShooting = false;
+    public bool laserShooting = false;
 
     public override void _Ready()
     {
@@ -28,6 +28,7 @@ public class Laser : Node2D
         _laser.AddPoint(Vector2.Zero);
     }
 
+    // player calls this
     public void toggleLaserShooting(bool isShooting)
     {
         SceneTreeTween tween = GetTree().CreateTween();
@@ -39,25 +40,27 @@ public class Laser : Node2D
         }
         else
         {
+            stopLaser();
             tween.TweenProperty(_laser, "width", 0.0f, 0.2f);
             tween.Parallel().TweenProperty(_startLaser, "scale", new Vector2(0.0f, _startLaser.Scale.y), 0.2f);
-            tween.Connect("finished", this, "stopLaser");
+            // tween.Connect("finished", this, "stopLaser");
 
         }
     }
 
     public void stopLaser()
     {
-        _startLaser.Visible = false;
-        Visible = false;
-        _laserShooting = false;
+
+        // _startLaser.Visible = false;
+        // Visible = false;
+        laserShooting = false;
     }
 
     public void startLaser()
     {
         _startLaser.Visible = true;
         Visible = true;
-        _laserShooting = true;
+        laserShooting = true;
     }
 
     public void destroyTiles(Vector2 destroyPos)
@@ -68,7 +71,7 @@ public class Laser : Node2D
 
     public override void _PhysicsProcess(float delta)
     {
-        if (_laserShooting)
+        if (laserShooting)
         {
             // bool colliding = false;
 
