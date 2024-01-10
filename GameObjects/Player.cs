@@ -182,6 +182,8 @@ public class Player : KinematicBody2D
                 break;
             case States.FLOOR:
                 // Purpose: If you have movement horizontally, it plays "Run" animation
+                Fall(delta); // this may be fine?
+
                 if (GetHorizontalMovement() && velocity.Abs().Length() > 100)
                 {
                     _sprite.Play("Run");
@@ -201,6 +203,7 @@ public class Player : KinematicBody2D
                 }
                 else if (!IsOnFloor()){
                     state = States.AIR;
+                    GD.Print("not on floor switching to air now");
                     // _sprite.Play("Fall");
                 }
 

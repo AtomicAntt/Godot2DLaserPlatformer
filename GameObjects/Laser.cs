@@ -85,6 +85,16 @@ public class Laser : Node2D
                     // _endPos.GlobalPosition = rayCast.GetCollisionPoint();
                     // Purpose of normalized vector being added: Need to go deeper to register as in that tile, not just the one right outside it.
                     destroyTiles(rayCast.GetCollisionPoint() + (rayCast.GetCollisionPoint() - GlobalPosition).Normalized());
+                    // GD.Print(rayCast.GetCollider().GetClass());
+                    if (rayCast.GetCollider().IsClass("KinematicBody2D"))
+                    {
+                        KinematicBody2D collider = (KinematicBody2D)rayCast.GetCollider();
+                        if (collider.IsInGroup("enemy"))
+                        {
+                            EnemyEntity enemy = (EnemyEntity)collider;
+                            enemy.Destruct();
+                        }
+                    }
                 }
             }
             // if (!colliding)

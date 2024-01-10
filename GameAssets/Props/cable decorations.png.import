@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/enemies.png-98d872599c153463c8b379b120410e6f.stex"
+path="res://.import/cable decorations.png-e51eb0d4120996f053e41cbcdb6d704d.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://GameAssets/enemies/enemies.png"
-dest_files=[ "res://.import/enemies.png-98d872599c153463c8b379b120410e6f.stex" ]
+source_file="res://GameAssets/Props/cable decorations.png"
+dest_files=[ "res://.import/cable decorations.png-e51eb0d4120996f053e41cbcdb6d704d.stex" ]
 
 [params]
 
