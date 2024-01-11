@@ -9,10 +9,11 @@ public class EnemyProjectile : Area2D
     private Player _player;
 
     [Export]
-    public int speed = 30;
+    public int speed = 100;
 
     [Export]
     public int damage = 10;
+
 
     public override void _Ready()
     {
@@ -45,6 +46,9 @@ public class EnemyProjectile : Area2D
 
     public override void _PhysicsProcess(float delta)
     {
-        Position += _direction * speed * delta;
+        if (_animatedSprite.Animation != "explode")
+        {
+            Position += _direction * speed * delta;
+        }
     }
 }

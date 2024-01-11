@@ -1,12 +1,13 @@
-[gd_scene load_steps=83 format=2]
+[gd_scene load_steps=85 format=2]
 
 [ext_resource path="res://GameObjects/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://GameAssets/PrototypeTileset_32x32.png" type="Texture" id=2]
 [ext_resource path="res://Worlds/Level.cs" type="Script" id=3]
-[ext_resource path="res://GameObjects/Enemy.tscn" type="PackedScene" id=4]
+[ext_resource path="res://GameObjects/Enemies/Enemy.tscn" type="PackedScene" id=4]
 [ext_resource path="res://GameAssets/Tileset/tiles.png" type="Texture" id=5]
 [ext_resource path="res://GameAssets/Tileset/background tiles.png" type="Texture" id=6]
 [ext_resource path="res://GameObjects/EnemyProjectile.tscn" type="PackedScene" id=7]
+[ext_resource path="res://GameObjects/Enemies/EnemySmallDrone.tscn" type="PackedScene" id=8]
 
 [sub_resource type="ConvexPolygonShape2D" id=2]
 points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
@@ -860,6 +861,11 @@ _data = {
 
 [sub_resource type="TileSet" id=75]
 
+[sub_resource type="Curve2D" id=76]
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, -392, -229, 0, 0, 0, 0, -304, -255, 0, 0, 0, 0, -227, -170, 0, 0, 0, 0, -381, -114, 0, 0, 0, 0, -392, -229 )
+}
+
 [node name="Level1" type="Node2D" groups=["level"]]
 script = ExtResource( 3 )
 
@@ -903,4 +909,15 @@ cell_size = Vector2( 32, 32 )
 format = 1
 
 [node name="EnemyProjectile" parent="." instance=ExtResource( 7 )]
-position = Vector2( -299, -143 )
+position = Vector2( -209, -113 )
+
+[node name="Path2D2" type="Path2D" parent="."]
+curve = SubResource( 76 )
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D2"]
+position = Vector2( -392, -229 )
+rotation = -0.287288
+rotate = false
+
+[node name="EnemySmallDrone" parent="Path2D2/PathFollow2D" instance=ExtResource( 8 )]
+rotation = 0.287288
