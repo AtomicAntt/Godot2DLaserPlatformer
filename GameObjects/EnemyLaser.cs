@@ -7,6 +7,9 @@ public class EnemyLaser : Node2D
     private Position2D _endPos;
     private RayCast2D _rayCast;
 
+    [Export]
+    public int damage = 20;
+
     public override void _Ready()
     {
         _laser = GetNode<Line2D>("Line2D");
@@ -24,6 +27,16 @@ public class EnemyLaser : Node2D
         if (_rayCast.IsColliding())
         {
             _endPos.GlobalPosition = _rayCast.GetCollisionPoint();
+
+            if (_rayCast.GetCollider().IsClass("KinematicBody2D"))
+            {
+                KinematicBody2D collider = (KinematicBody2D)_rayCast.GetCollider();
+                if (collider.IsInGroup("player"))
+                {
+                    Player player = (Player)collider;
+                    player.Hurt(damage);
+                }
+            }
         }
         else
         {

@@ -8,18 +8,29 @@ public class Player : KinematicBody2D
     [Export]
     public States state = States.AIR;
     [Export]
+    public bool immune = false;
+    [Export]
     public Vector2 velocity = Vector2.Zero;
+
+
+    [Export]
+    public int totalHealth = 100;
+    [Export]
+    public int health = 100;
 
     private Laser _laser;
     private AnimatedSprite _sprite;
     private Timer _sleepingTimer;
     private Timer _chargingTimer;
+    private AnimationPlayer _animationPlayer;
 
     private const int _Speed = 330;
     private const int _Gravity = 1300;
     private const int _Jump = -600;
     private const int _Laser_Radius = 80;
     private const int _Recoil = 400;
+
+    private double _soFarLaserDamage = 0.0; // Purpose: If this reaches >= 0.25, it resets and does 1 damage. It is incremented with delta.
 
     
     public override void _Ready()
@@ -28,6 +39,7 @@ public class Player : KinematicBody2D
         _sprite = GetNode<AnimatedSprite>("AnimatedSprite");
         _sleepingTimer = GetNode<Timer>("SleepingTimer");
         _chargingTimer = GetNode<Timer>("ChargingTimer");
+        _animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
     }
 
     public bool GetHorizontalMovement()
@@ -113,7 +125,6 @@ public class Player : KinematicBody2D
 
     public void ManageDirection(string fireOrRecoil)
     {
-        // GD.Print(GlobalPosition.DirectionTo(GetGlobalMousePosition()));
         double yDirectionTo = GlobalPosition.DirectionTo(GetGlobalMousePosition()).y;
 
         if (yDirectionTo >= -1 && yDirectionTo <= -0.6) 
@@ -139,6 +150,17 @@ public class Player : KinematicBody2D
 
     }
 
+    // Remember, these 2 functions are called ONLY by animationplayer to handle immunity during hurt animation
+    public void SetImmune()
+    {
+        immune = true;
+    }
+
+    public void RemoveImmunity()
+    {
+        immune = false;
+    }
+
     public void SetFalling()
     {
         _sprite.Play("Fall");
@@ -162,13 +184,53 @@ public class Player : KinematicBody2D
     {
         state = States.SHOOTING;
         _sprite.Play("Recoil");
+        Hurt(1); // Every time you start the laser, you take at least one damage (then its ~1 per second)
     }
+
+    public void Die()
+    {
+        GD.Print("game over");
+        state = States.DEAD;
+        _sprite.Play("Dead");
+    }
+
+    public void Hurt(int damageTaken)
+    {
+        // or statement is here because laser can hurt you too
+        if ((!immune && state != States.DEAD) || (state == States.SHOOTING && damageTaken == 1))
+        {
+            health -= damageTaken;
+            // GD.Print("player hurt, health left: " + health + "/" + totalHealth);
+
+            // Here we are assuming there that the first (and only) node in group healthBar is actually a health bar
+            HealthBar healthBar = GetTree().GetNodesInGroup("healthBar")[0] as HealthBar;
+
+            healthBar.TakeDamage(damageTaken);
+
+
+            if (health <= 0)
+            {
+                Die();
+            }
+            else if (!(state == States.SHOOTING && damageTaken == 1)) // no free immunity for using laser
+            {
+                _animationPlayer.Play("Hurt");
+            }
+        }
+
+    }
+
+    
 
     public override void _PhysicsProcess(float delta)
     {
         velocity = MoveAndSlide(velocity, Vector2.Up);
-        MoveLaserToMouse();
-        ManageLaserShooting();
+        if (state != States.DEAD)
+        {
+            MoveLaserToMouse();
+            ManageLaserShooting();
+        }
+        
         switch(state)
         {
             case States.AIR:
@@ -209,6 +271,7 @@ public class Player : KinematicBody2D
 
                 break;
             case States.DEAD:
+                Fall(delta);
                 break;
             case States.CHARGING:
                 GetHorizontalMovement();
@@ -221,12 +284,21 @@ public class Player : KinematicBody2D
                 FaceTowardsMouse(); // After horizontal movement to override the flip
                 ManageDirection("Recoil");
                 Fall(delta); // this may be fine?
+
                 velocity -= (_laser.GlobalPosition - GlobalPosition).Normalized() * _Recoil;
+
+                _soFarLaserDamage += delta;
+                if (_soFarLaserDamage >= 0.2){
+                    _soFarLaserDamage -= 0.2;
+                    Hurt(1);
+                }
+
+
                 break;
 
         }
 
-        if (velocity.y > 50 && state != States.SHOOTING && state != States.CHARGING)
+        if (velocity.y > 50 && state != States.SHOOTING && state != States.CHARGING && state != States.DEAD)
         {
             _sprite.Play("Fall");
         }
@@ -260,10 +332,6 @@ public class Player : KinematicBody2D
         if (state == States.CHARGING)
         {
             SetShooting();
-        }
-        else
-        {
-
         }
     }
 

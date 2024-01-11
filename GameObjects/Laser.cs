@@ -85,6 +85,8 @@ public class Laser : Node2D
                     // _endPos.GlobalPosition = rayCast.GetCollisionPoint();
                     // Purpose of normalized vector being added: Need to go deeper to register as in that tile, not just the one right outside it.
                     destroyTiles(rayCast.GetCollisionPoint() + (rayCast.GetCollisionPoint() - GlobalPosition).Normalized());
+
+                    destroyTiles(rayCast.GetCollisionPoint()); // Purpose: Lets doubly make sure that tile is destroyed
                     // GD.Print(rayCast.GetCollider().GetClass());
                     if (rayCast.GetCollider().IsClass("KinematicBody2D"))
                     {
@@ -93,6 +95,7 @@ public class Laser : Node2D
                         {
                             EnemyEntity enemy = (EnemyEntity)collider;
                             enemy.Destruct();
+                            break; // purpose: only need to destruct the enemy one time
                         }
                     }
                 }

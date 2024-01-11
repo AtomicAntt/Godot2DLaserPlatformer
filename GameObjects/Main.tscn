@@ -1,6 +1,17 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://GameObjects/Main.cs" type="Script" id=1]
+[ext_resource path="res://GameAssets/Fonts/m5x7.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://GameAssets/UI/Border.png" type="Texture" id=3]
+[ext_resource path="res://GameAssets/UI/HealthBar.png" type="Texture" id=5]
+[ext_resource path="res://GameAssets/UI/DamageBar.png" type="Texture" id=6]
+[ext_resource path="res://GameObjects/HealthBar.cs" type="Script" id=7]
+
+[sub_resource type="DynamicFont" id=1]
+font_data = ExtResource( 2 )
+
+[sub_resource type="Theme" id=2]
+default_font = SubResource( 1 )
 
 [node name="Main" type="Node"]
 script = ExtResource( 1 )
@@ -10,3 +21,44 @@ margin_right = 40.0
 margin_bottom = 40.0
 
 [node name="Levels" type="Node2D" parent="."]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Levels"]
+
+[node name="Control" type="Control" parent="Levels/CanvasLayer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Levels/CanvasLayer/Control"]
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 53.0
+margin_bottom = 29.0
+rect_scale = Vector2( 3, 3 )
+theme = SubResource( 2 )
+custom_constants/separation = 0
+
+[node name="HealthLabel" type="Label" parent="Levels/CanvasLayer/Control/VBoxContainer"]
+margin_right = 48.0
+margin_bottom = 13.0
+text = "100/100"
+align = 1
+
+[node name="CenterContainer" type="CenterContainer" parent="Levels/CanvasLayer/Control/VBoxContainer" groups=["healthBar"]]
+margin_top = 13.0
+margin_right = 48.0
+margin_bottom = 24.0
+script = ExtResource( 7 )
+
+[node name="DamageBar" type="TextureProgress" parent="Levels/CanvasLayer/Control/VBoxContainer/CenterContainer"]
+margin_right = 48.0
+margin_bottom = 11.0
+value = 100.0
+texture_progress = ExtResource( 6 )
+
+[node name="HealthBar" type="TextureProgress" parent="Levels/CanvasLayer/Control/VBoxContainer/CenterContainer"]
+margin_right = 48.0
+margin_bottom = 11.0
+value = 100.0
+texture_over = ExtResource( 3 )
+texture_progress = ExtResource( 5 )

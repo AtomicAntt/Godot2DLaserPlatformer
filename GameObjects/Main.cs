@@ -7,6 +7,12 @@ public class Main : Node
     private Control _mainMenu; 
     private Node2D _levels;
 
+    [Export]
+    public int currentLevel = 0;
+
+    [Export]
+    public int numLevels = 5;
+
 
     private Node2D _levelInstance;
 
@@ -35,5 +41,17 @@ public class Main : Node
             _levelInstance = levelResource.Instance<Node2D>();
             _levels.AddChild(_levelInstance);
         }
+    }
+
+    public bool LoadNextLevel()
+    {
+        if ((currentLevel >= numLevels))
+        {
+            GD.Print("current level is already at or somehow greater than numlevels, so i cant load the next level!");
+            return false;
+        }
+
+        LoadLevel("Level" + (currentLevel+1));
+        return true;
     }
 }
