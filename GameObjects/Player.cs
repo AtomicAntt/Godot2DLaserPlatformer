@@ -184,7 +184,7 @@ public class Player : KinematicBody2D
     {
         state = States.SHOOTING;
         _sprite.Play("Recoil");
-        Hurt(1); // Every time you start the laser, you take at least one damage (then its ~1 per second)
+        Hurt(1); // Every time you start the laser, you take at least one damage
     }
 
     public void Die()
@@ -265,13 +265,13 @@ public class Player : KinematicBody2D
                 }
                 else if (!IsOnFloor()){
                     state = States.AIR;
-                    GD.Print("not on floor switching to air now");
                     // _sprite.Play("Fall");
                 }
 
                 break;
             case States.DEAD:
                 Fall(delta);
+                velocity.x = Mathf.Lerp(velocity.x, 0, 0.5f);
                 break;
             case States.CHARGING:
                 GetHorizontalMovement();

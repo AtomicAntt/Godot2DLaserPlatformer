@@ -7,8 +7,16 @@ public class EnemyLaser : Node2D
     private Position2D _endPos;
     private RayCast2D _rayCast;
 
+    public int attackRange = 1000;
+
+    [Export]
+    public bool trackingEnabled = false;
+
     [Export]
     public int damage = 20;
+
+    [Export]
+    public int rotationSpeed = 50;
 
     public override void _Ready()
     {
@@ -23,6 +31,12 @@ public class EnemyLaser : Node2D
     public override void _PhysicsProcess(float delta)
     {
         _laser.SetPointPosition(0, Vector2.Zero);
+
+        if (trackingEnabled)
+        {
+            RotationDegrees += (rotationSpeed * delta);
+            RotationDegrees = RotationDegrees % 360;
+        }
 
         if (_rayCast.IsColliding())
         {
@@ -40,10 +54,17 @@ public class EnemyLaser : Node2D
         }
         else
         {
-            _endPos.GlobalPosition = _rayCast.GlobalPosition + new Vector2(_rayCast.CastTo.x, _rayCast.CastTo.y);
+            // _endPos.GlobalPosition = _rayCast.GlobalPosition + new Vector2(_rayCast.CastTo.x, _rayCast.CastTo.y);
+            _endPos.GlobalPosition = GlobalPosition + new Vector2(_rayCast.CastTo.x, _rayCast.CastTo.y);
+
         }
 
         _laser.SetPointPosition(1, _endPos.Position);
+    }
+
+    public void FlipLaser()
+    {
+        _rayCast.CastTo *= -1;
     }
 
 

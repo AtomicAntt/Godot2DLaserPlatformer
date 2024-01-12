@@ -2,7 +2,7 @@
 
 [ext_resource path="res://GameObjects/EnemyLaser.cs" type="Script" id=1]
 
-[node name="EnemyLaser" type="Node2D"]
+[node name="EnemyLaser" type="Node2D" groups=["enemyLaser"]]
 position = Vector2( 17, 0 )
 z_index = 1
 script = ExtResource( 1 )

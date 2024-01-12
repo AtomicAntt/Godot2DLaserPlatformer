@@ -9,7 +9,7 @@ public class EnemyProjectile : Area2D
     private Player _player;
 
     [Export]
-    public int speed = 100;
+    public int speed = 200;
 
     [Export]
     public int damage = 10;

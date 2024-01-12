@@ -82,4 +82,10 @@ public class EnemyProjectileShooter : Node2D
         }
 
     }
+
+    // Called by enemytorus
+    public bool SeesPlayer()
+    {
+        return _seePlayer;
+    }
 }
