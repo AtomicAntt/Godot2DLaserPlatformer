@@ -8,7 +8,7 @@ public class Main : Node
     private Node2D _levels;
 
     [Export]
-    public int currentLevel = 0;
+    public int currentLevel = 1;
 
     [Export]
     public int numLevels = 5;
@@ -51,7 +51,7 @@ public class Main : Node
             return false;
         }
 
-        LoadLevel("Level" + (currentLevel+1));
+        LoadLevel("Level" + (currentLevel+=1));
         return true;
     }
 }

@@ -18,6 +18,9 @@ public class Player : KinematicBody2D
     [Export]
     public int health = 100;
 
+    [Export]
+    public bool hasKeycard = false;
+
     private Laser _laser;
     private AnimatedSprite _sprite;
     private Timer _sleepingTimer;

@@ -593,7 +593,7 @@ position = Vector2( 30, 0 )
 position = Vector2( -2, -7 )
 frames = SubResource( 2 )
 animation = "Recoil"
-frame = 4
+frame = 3
 playing = true
 
 [node name="SleepingTimer" type="Timer" parent="."]

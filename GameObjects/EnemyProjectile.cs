@@ -21,7 +21,10 @@ public class EnemyProjectile : Area2D
 
         _player = GetTree().GetNodesInGroup("player")[0] as Player;
 
-        _direction = (_player.GlobalPosition - GlobalPosition).Normalized();
+        if (IsInstanceValid(_player))
+        {
+            _direction = (_player.GlobalPosition - GlobalPosition).Normalized();
+        }
     }
 
     public void _on_EnemyProjectile_body_entered(Node2D body)

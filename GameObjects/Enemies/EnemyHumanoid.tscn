@@ -52,7 +52,6 @@ shape = SubResource( 1 )
 position = Vector2( 0, -11 )
 frames = SubResource( 6 )
 animation = "Default"
-frame = 1
 playing = true
 
 [node name="EnemyLaser" parent="." instance=ExtResource( 2 )]

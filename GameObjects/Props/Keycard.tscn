@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://GameObjects/Props/Keycard.cs" type="Script" id=1]
+[ext_resource path="res://GameAssets/Props/keycard.png" type="Texture" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 14, 10 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="SpriteFrames" id=3]
+animations = [ {
+"frames": [ SubResource( 2 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[node name="Keycard" type="Area2D" groups=["keycard"]]
+script = ExtResource( 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, -3 )
+shape = SubResource( 1 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 3 )
+
+[connection signal="body_entered" from="." to="." method="_on_Keycard_body_entered"]

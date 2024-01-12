@@ -49,6 +49,10 @@ public class EnemyProjectileShooter : Node2D
 
     public override void _PhysicsProcess(float delta)
     {
+        if (!IsInstanceValid(_player))
+        {
+            return;
+        }
         Vector2 directionToPlayer = GlobalPosition.DirectionTo(_player.GlobalPosition);
         _raycast.CastTo = directionToPlayer * attackRange;
 
