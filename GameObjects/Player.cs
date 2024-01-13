@@ -195,6 +195,7 @@ public class Player : KinematicBody2D
         GD.Print("game over");
         state = States.DEAD;
         _sprite.Play("Dead");
+        toggleLaser(false);
     }
 
     public void Hurt(int damageTaken)
@@ -291,8 +292,8 @@ public class Player : KinematicBody2D
                 velocity -= (_laser.GlobalPosition - GlobalPosition).Normalized() * _Recoil;
 
                 _soFarLaserDamage += delta;
-                if (_soFarLaserDamage >= 0.2){
-                    _soFarLaserDamage -= 0.2;
+                if (_soFarLaserDamage >= 0.1){
+                    _soFarLaserDamage -= 0.1;
                     Hurt(1);
                 }
 

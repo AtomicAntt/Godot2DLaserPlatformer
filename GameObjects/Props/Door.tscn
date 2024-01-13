@@ -66,18 +66,21 @@ shape = SubResource( 1 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 9 )
-animation = "Inactive"
+animation = "Close"
+frame = 2
 playing = true
 
 [node name="Label" type="Label" parent="."]
 visible = false
-margin_left = -99.0
-margin_top = -55.0
-margin_right = 103.0
-margin_bottom = -41.0
+modulate = Color( 0, 0, 0, 1 )
+margin_left = -70.0
+margin_top = -66.0
+margin_right = 76.0
+margin_bottom = -37.0
 theme = SubResource( 11 )
 text = "You need a keycard to open this door!"
 align = 1
+autowrap = true
 
 [connection signal="body_entered" from="." to="." method="_on_Door_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_Door_body_exited"]
