@@ -51,6 +51,7 @@ public class EnemyProjectileShooter : Node2D
     {
         if (!IsInstanceValid(_player))
         {
+            _player = GetTree().GetNodesInGroup("player")[0] as Player;
             return;
         }
         Vector2 directionToPlayer = GlobalPosition.DirectionTo(_player.GlobalPosition);

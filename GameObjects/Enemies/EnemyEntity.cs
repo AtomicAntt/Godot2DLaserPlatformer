@@ -26,7 +26,8 @@ public class EnemyEntity : KinematicBody2D
     {
         PackedScene scene = GD.Load<PackedScene>("res://GameObjects/DeathParticles.tscn");
         DeathParticles particlesInstance = scene.Instance<DeathParticles>();
-        GetParent().AddChild(particlesInstance);
+        Level level = GetTree().GetNodesInGroup("level")[0] as Level;
+        level.AddChild(particlesInstance);
         particlesInstance.GlobalPosition = GlobalPosition;
         QueueFree();
     }

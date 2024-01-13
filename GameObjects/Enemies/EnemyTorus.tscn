@@ -28,7 +28,7 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[node name="EnemySmallDrone" type="KinematicBody2D" groups=["enemy"]]
+[node name="EnemyTorus" type="KinematicBody2D" groups=["enemy"]]
 collision_layer = 2
 script = ExtResource( 1 )
 

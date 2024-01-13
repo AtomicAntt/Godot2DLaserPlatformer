@@ -45,6 +45,7 @@ public class Door : Area2D
     {
         if (@event.IsActionPressed("interact") && _player.hasKeycard)
         {
+            _player.hasKeycard = false;
             _main.LoadNextLevel();
         }
     }

@@ -21,7 +21,7 @@ public class Main : Node
         _mainMenu = GetNode<Control>("MainMenu");
         _levels = GetNode<Node2D>("Levels");
 
-        LoadLevel("Level1");
+        LoadLevel("Level3");
     }
 
     public void UnloadLevel() 
@@ -43,6 +43,7 @@ public class Main : Node
         }
     }
 
+    // door calls this
     public bool LoadNextLevel()
     {
         if ((currentLevel >= numLevels))

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/enemies-1.png (1).png-264817dca3c96fd9568db371bc606d19.stex"
+path="res://.import/enemies-1.png_2.png-794ce5f122ac106c6d8aa6eef5b59158.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://GameAssets/enemies/enemies-1.png (1).png"
-dest_files=[ "res://.import/enemies-1.png (1).png-264817dca3c96fd9568db371bc606d19.stex" ]
+source_file="res://GameAssets/enemies/enemies-1.png_2.png"
+dest_files=[ "res://.import/enemies-1.png_2.png-794ce5f122ac106c6d8aa6eef5b59158.stex" ]
 
 [params]
 

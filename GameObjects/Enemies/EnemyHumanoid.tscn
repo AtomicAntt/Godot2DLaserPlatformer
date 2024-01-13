@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://GameObjects/Enemies/EnemyHumanoid.cs" type="Script" id=1]
 [ext_resource path="res://GameObjects/EnemyLaser.tscn" type="PackedScene" id=2]
@@ -6,10 +6,6 @@
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 12.5, 29.5 )
-
-[sub_resource type="AtlasTexture" id=7]
-atlas = ExtResource( 3 )
-region = Rect2( 0, 204, 32, 51 )
 
 [sub_resource type="AtlasTexture" id=8]
 atlas = ExtResource( 3 )
@@ -29,7 +25,7 @@ region = Rect2( 128, 204, 32, 51 )
 
 [sub_resource type="SpriteFrames" id=6]
 animations = [ {
-"frames": [ SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 10 ) ],
+"frames": [ SubResource( 8 ), SubResource( 9 ), SubResource( 10 ), SubResource( 9 ) ],
 "loop": true,
 "name": "Default",
 "speed": 9.0

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/enemies-1.png (1).png-264817dca3c96fd9568db371bc606d19.stex"
+path="res://.import/office_decorations.png-fee4b459a7fab5994206a5f176a5cd99.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://GameAssets/enemies/enemies-1.png (1).png"
-dest_files=[ "res://.import/enemies-1.png (1).png-264817dca3c96fd9568db371bc606d19.stex" ]
+source_file="res://GameAssets/Props/office_decorations.png"
+dest_files=[ "res://.import/office_decorations.png-fee4b459a7fab5994206a5f176a5cd99.stex" ]
 
 [params]
 
