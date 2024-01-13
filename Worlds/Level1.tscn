@@ -1,4 +1,4 @@
-[gd_scene load_steps=103 format=2]
+[gd_scene load_steps=104 format=2]
 
 [ext_resource path="res://GameObjects/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://GameAssets/PrototypeTileset_32x32.png" type="Texture" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://GameObjects/Enemies/EnemySmallDrone.tscn" type="PackedScene" id=8]
 [ext_resource path="res://GameAssets/Tileset/burnttilesv2.png" type="Texture" id=9]
 [ext_resource path="res://GameAssets/Tileset/burnttilesv3.png" type="Texture" id=10]
+[ext_resource path="res://GameObjects/Props/Computer.tscn" type="PackedScene" id=11]
 [ext_resource path="res://GameObjects/Props/Door.tscn" type="PackedScene" id=13]
 [ext_resource path="res://GameObjects/Props/Keycard.tscn" type="PackedScene" id=14]
 
@@ -1075,9 +1076,6 @@ format = 1
 [node name="Player" parent="." instance=ExtResource( 1 )]
 position = Vector2( -575, 37 )
 
-[node name="AnimatedSprite" parent="Player" index="3"]
-frame = 2
-
 [node name="Path2D" type="Path2D" parent="."]
 curve = SubResource( 76 )
 
@@ -1133,11 +1131,14 @@ position = Vector2( -1.9679, 1.06189 )
 rotation = -1.60194
 
 [node name="AnimatedSprite" parent="Path2D4/PathFollow2D/Enemy" index="1"]
-frame = 2
+frame = 0
 flip_h = true
 
 [node name="RayCast2D" parent="Path2D4/PathFollow2D/Enemy/EnemyLaser2" index="0"]
 cast_to = Vector2( 2000, 0 )
+
+[node name="Computer" parent="." instance=ExtResource( 11 )]
+position = Vector2( -376, -353 )
 
 [editable path="Player"]
 [editable path="Path2D4/PathFollow2D/Enemy"]

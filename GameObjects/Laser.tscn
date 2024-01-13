@@ -23,114 +23,133 @@ position = Vector2( 30, 0 )
 enabled = true
 cast_to = Vector2( -2000, 0 )
 collision_mask = 3
+collide_with_areas = true
 
 [node name="RayCast2D3" type="RayCast2D" parent="RayCasts"]
 position = Vector2( 30, -5 )
 enabled = true
 cast_to = Vector2( -2000, 0 )
 collision_mask = 3
+collide_with_areas = true
 
 [node name="RayCast2D7" type="RayCast2D" parent="RayCasts"]
 position = Vector2( 30, -10 )
 enabled = true
 cast_to = Vector2( -2000, 0 )
 collision_mask = 3
+collide_with_areas = true
 
 [node name="RayCast2D8" type="RayCast2D" parent="RayCasts"]
 position = Vector2( 30, -15 )
 enabled = true
 cast_to = Vector2( -2000, 0 )
 collision_mask = 3
+collide_with_areas = true
 
 [node name="RayCast2D9" type="RayCast2D" parent="RayCasts"]
 position = Vector2( 30, -20 )
 enabled = true
 cast_to = Vector2( -2000, 0 )
 collision_mask = 3
+collide_with_areas = true
 
 [node name="RayCast2D14" type="RayCast2D" parent="RayCasts"]
 position = Vector2( 30, -25 )
 enabled = true
 cast_to = Vector2( -2000, 0 )
 collision_mask = 3
+collide_with_areas = true
 
 [node name="RayCast2D15" type="RayCast2D" parent="RayCasts"]
 position = Vector2( 30, -30 )
 enabled = true
 cast_to = Vector2( -2000, 0 )
 collision_mask = 3
+collide_with_areas = true
 
 [node name="RayCast2D16" type="RayCast2D" parent="RayCasts"]
 position = Vector2( 30, -35 )
 enabled = true
 cast_to = Vector2( -2000, 0 )
 collision_mask = 3
+collide_with_areas = true
 
 [node name="RayCast2D17" type="RayCast2D" parent="RayCasts"]
 position = Vector2( 30, -40 )
 enabled = true
 cast_to = Vector2( -2000, 0 )
 collision_mask = 3
+collide_with_areas = true
 
 [node name="RayCast2D18" type="RayCast2D" parent="RayCasts"]
 position = Vector2( 30, -48 )
 enabled = true
 cast_to = Vector2( -2000, 0 )
 collision_mask = 3
+collide_with_areas = true
 
 [node name="RayCast2D2" type="RayCast2D" parent="RayCasts"]
 position = Vector2( 30, 5 )
 enabled = true
 cast_to = Vector2( -2000, 0 )
 collision_mask = 3
+collide_with_areas = true
 
 [node name="RayCast2D4" type="RayCast2D" parent="RayCasts"]
 position = Vector2( 30, 10 )
 enabled = true
 cast_to = Vector2( -2000, 0 )
 collision_mask = 3
+collide_with_areas = true
 
 [node name="RayCast2D5" type="RayCast2D" parent="RayCasts"]
 position = Vector2( 30, 15 )
 enabled = true
 cast_to = Vector2( -2000, 0 )
 collision_mask = 3
+collide_with_areas = true
 
 [node name="RayCast2D6" type="RayCast2D" parent="RayCasts"]
 position = Vector2( 30, 20 )
 enabled = true
 cast_to = Vector2( -2000, 0 )
 collision_mask = 3
+collide_with_areas = true
 
 [node name="RayCast2D10" type="RayCast2D" parent="RayCasts"]
 position = Vector2( 30, 25 )
 enabled = true
 cast_to = Vector2( -2000, 0 )
 collision_mask = 3
+collide_with_areas = true
 
 [node name="RayCast2D11" type="RayCast2D" parent="RayCasts"]
 position = Vector2( 30, 30 )
 enabled = true
 cast_to = Vector2( -2000, 0 )
 collision_mask = 3
+collide_with_areas = true
 
 [node name="RayCast2D12" type="RayCast2D" parent="RayCasts"]
 position = Vector2( 30, 35 )
 enabled = true
 cast_to = Vector2( -2000, 0 )
 collision_mask = 3
+collide_with_areas = true
 
 [node name="RayCast2D13" type="RayCast2D" parent="RayCasts"]
 position = Vector2( 30, 40 )
 enabled = true
 cast_to = Vector2( -2000, 0 )
 collision_mask = 3
+collide_with_areas = true
 
 [node name="RayCast2D20" type="RayCast2D" parent="RayCasts"]
 position = Vector2( 30, 47 )
 enabled = true
 cast_to = Vector2( -2000, 0 )
 collision_mask = 3
+collide_with_areas = true
 
 [node name="StartLaser" type="Sprite" parent="."]
 position = Vector2( 15, 0 )

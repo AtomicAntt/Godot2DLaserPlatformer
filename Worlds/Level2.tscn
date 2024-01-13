@@ -1101,7 +1101,7 @@ format = 1
 position = Vector2( -575, 37 )
 
 [node name="AnimatedSprite" parent="Player" index="3"]
-frame = 4
+frame = 2
 
 [node name="Keycard" parent="." instance=ExtResource( 14 )]
 position = Vector2( -675, -235 )
@@ -1122,6 +1122,7 @@ position = Vector2( -2.99763, -1.00714 )
 rotation = -1.56844
 
 [node name="AnimatedSprite" parent="Path2D/PathFollow2D/Enemy" index="1"]
+frame = 0
 flip_h = true
 
 [node name="RayCast2D" parent="Path2D/PathFollow2D/Enemy/EnemyLaser2" index="0"]

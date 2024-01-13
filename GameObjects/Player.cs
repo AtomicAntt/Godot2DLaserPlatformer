@@ -3,7 +3,7 @@ using System;
 
 public class Player : KinematicBody2D
 {
-    public enum States {AIR, FLOOR, DEAD, CHARGING, SHOOTING};
+    public enum States {AIR, FLOOR, DEAD, CHARGING, SHOOTING, RECOVER};
 
     [Export]
     public States state = States.AIR;
@@ -43,6 +43,10 @@ public class Player : KinematicBody2D
         _sleepingTimer = GetNode<Timer>("SleepingTimer");
         _chargingTimer = GetNode<Timer>("ChargingTimer");
         _animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
+
+        HealthBar healthBar = GetTree().GetNodesInGroup("healthBar")[0] as HealthBar;
+
+        healthBar.ResetHealth();
     }
 
     public bool GetHorizontalMovement()
@@ -224,6 +228,16 @@ public class Player : KinematicBody2D
 
     }
 
+    public void Recover()
+    {
+        state = States.RECOVER;
+        _sprite.Play("Recover");
+        HealthBar healthBar = GetTree().GetNodesInGroup("healthBar")[0] as HealthBar;
+
+        healthBar.ResetHealth();
+        health = totalHealth;
+    }
+
     
 
     public override void _PhysicsProcess(float delta)
@@ -299,6 +313,10 @@ public class Player : KinematicBody2D
 
 
                 break;
+            case States.RECOVER:
+                Fall(delta);
+                velocity.x = Mathf.Lerp(velocity.x, 0, 0.5f);
+                break;
 
         }
 
@@ -328,6 +346,10 @@ public class Player : KinematicBody2D
         if (_sprite.Animation == "Idle2")
         {
             SetIdle(); // So they will go back to sleeping again soon
+        }
+        if (_sprite.Animation == "Recover")
+        {
+            state = States.AIR;
         }
     }
 

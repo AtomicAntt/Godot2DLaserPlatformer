@@ -1092,7 +1092,7 @@ format = 1
 position = Vector2( -575, 37 )
 
 [node name="AnimatedSprite" parent="Player" index="3"]
-frame = 5
+frame = 1
 
 [node name="Keycard" parent="." instance=ExtResource( 14 )]
 position = Vector2( -222, -625 )
@@ -1153,7 +1153,6 @@ rotate = false
 [node name="EnemySmallDrone" parent="Path2D/PathFollow2D" instance=ExtResource( 8 )]
 position = Vector2( -0.2099, 1.98901 )
 rotation = 0.105212
-scale = Vector2( 1, 1 )
 
 [node name="Path2D2" type="Path2D" parent="."]
 position = Vector2( 3, 21 )
@@ -1168,7 +1167,6 @@ rotate = false
 [node name="EnemySmallDrone" parent="Path2D2/PathFollow2D" instance=ExtResource( 8 )]
 position = Vector2( -0.2099, 1.98901 )
 rotation = 0.105212
-scale = Vector2( 1, 1 )
 
 [node name="Path2D3" type="Path2D" parent="."]
 curve = SubResource( 93 )

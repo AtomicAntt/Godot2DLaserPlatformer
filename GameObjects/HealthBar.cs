@@ -30,4 +30,12 @@ public class HealthBar : CenterContainer
         SceneTreeTween tween = GetTree().CreateTween();
         tween.TweenProperty(_damageBar, "value", health, 0.5f);
     }
+
+    public void ResetHealth()
+    {
+        _healthBar.Value = maxHealth;
+        health = maxHealth;
+        _damageBar.Value = maxHealth;
+        _healthLabel.Text = health + "/" + maxHealth;
+    }
 }

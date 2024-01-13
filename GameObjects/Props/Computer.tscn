@@ -1,0 +1,70 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://GameAssets/Props/computer.png" type="Texture" id=1]
+[ext_resource path="res://GameObjects/Props/Computer.cs" type="Script" id=2]
+[ext_resource path="res://GameAssets/Fonts/m5x7.ttf" type="DynamicFontData" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 71, 28 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 0, 96, 64 )
+
+[sub_resource type="AtlasTexture" id=11]
+atlas = ExtResource( 1 )
+region = Rect2( 192, 0, 96, 64 )
+
+[sub_resource type="AtlasTexture" id=12]
+atlas = ExtResource( 1 )
+region = Rect2( 96, 0, 96, 64 )
+
+[sub_resource type="SpriteFrames" id=5]
+animations = [ {
+"frames": [ SubResource( 2 ) ],
+"loop": true,
+"name": "Default",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 11 ) ],
+"loop": true,
+"name": "Destroyed",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 12 ) ],
+"loop": true,
+"name": "Used",
+"speed": 5.0
+} ]
+
+[sub_resource type="DynamicFont" id=10]
+font_data = ExtResource( 3 )
+
+[sub_resource type="Theme" id=13]
+default_font = SubResource( 10 )
+
+[node name="Computer" type="Area2D" groups=["computer"]]
+script = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 3 )
+shape = SubResource( 1 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 5 )
+animation = "Default"
+
+[node name="Label" type="Label" parent="."]
+visible = false
+modulate = Color( 0, 0, 0, 1 )
+margin_left = -70.0
+margin_top = -66.0
+margin_right = 76.0
+margin_bottom = -37.0
+theme = SubResource( 13 )
+text = "Press 'e' to recover all damage taken!"
+align = 1
+autowrap = true
+
+[connection signal="body_entered" from="." to="." method="_on_Computer_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_Computer_body_exited"]

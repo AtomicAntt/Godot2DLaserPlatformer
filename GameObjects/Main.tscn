@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://GameObjects/Main.cs" type="Script" id=1]
 [ext_resource path="res://GameAssets/Fonts/m5x7.ttf" type="DynamicFontData" id=2]
@@ -13,6 +13,12 @@ font_data = ExtResource( 2 )
 
 [sub_resource type="Theme" id=2]
 default_font = SubResource( 1 )
+
+[sub_resource type="DynamicFont" id=3]
+font_data = ExtResource( 2 )
+
+[sub_resource type="Theme" id=4]
+default_font = SubResource( 3 )
 
 [node name="Main" type="Node" groups=["main"]]
 script = ExtResource( 1 )
@@ -40,6 +46,7 @@ theme = SubResource( 2 )
 custom_constants/separation = 0
 
 [node name="HealthLabel" type="Label" parent="Levels/CanvasLayer/Control/VBoxContainer"]
+modulate = Color( 0, 0, 0, 1 )
 margin_right = 48.0
 margin_bottom = 13.0
 text = "100/100"
@@ -68,3 +75,16 @@ margin_bottom = 11.0
 value = 100.0
 texture_over = ExtResource( 3 )
 texture_progress = ExtResource( 5 )
+
+[node name="KeycardStatus" type="Label" parent="Levels/CanvasLayer/Control"]
+visible = false
+modulate = Color( 0, 0, 0, 1 )
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -352.0
+margin_top = 40.0
+margin_right = 38.0
+margin_bottom = 54.0
+rect_scale = Vector2( 2, 2 )
+theme = SubResource( 4 )
+text = "There are no more keycards left in the map! Hold 'R' to restart the game!"

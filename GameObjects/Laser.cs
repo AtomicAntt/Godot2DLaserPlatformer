@@ -88,6 +88,8 @@ public class Laser : Node2D
 
                     destroyTiles(rayCast.GetCollisionPoint()); // Purpose: Lets doubly make sure that tile is destroyed
                     // GD.Print(rayCast.GetCollider().GetClass());
+
+                    // First, is it an enemy?
                     if (rayCast.GetCollider().IsClass("KinematicBody2D"))
                     {
                         KinematicBody2D collider = (KinematicBody2D)rayCast.GetCollider();
@@ -96,6 +98,24 @@ public class Laser : Node2D
                             EnemyEntity enemy = (EnemyEntity)collider;
                             enemy.Destruct();
                             break; // purpose: only need to destruct the enemy one time
+                        }
+                    }
+
+                    // Now, is it a keycard or computer?
+                    if (rayCast.GetCollider().IsClass("Area2D"))
+                    {
+                        Area2D collider = (Area2D)rayCast.GetCollider();
+                        if (collider.IsInGroup("keycard"))
+                        {
+                            Keycard keycard = (Keycard)collider;
+                            keycard.Destroy();
+                            break;
+                        }
+                        else if (collider.IsInGroup("computer"))
+                        {
+                            Computer computer = (Computer)collider;
+                            computer.Destroy();
+                            break;
                         }
                     }
                 }

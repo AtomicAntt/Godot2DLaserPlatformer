@@ -1,4 +1,4 @@
-[gd_scene load_steps=131 format=2]
+[gd_scene load_steps=138 format=2]
 
 [ext_resource path="res://GameObjects/Player.cs" type="Script" id=1]
 [ext_resource path="res://GameObjects/Laser.tscn" type="PackedScene" id=2]
@@ -19,6 +19,7 @@
 [ext_resource path="res://GameAssets/Player/recoil/recoil diagonal down.png" type="Texture" id=17]
 [ext_resource path="res://GameAssets/Player/hurt.png" type="Texture" id=18]
 [ext_resource path="res://GameAssets/Player/dead.png" type="Texture" id=19]
+[ext_resource path="res://GameAssets/Player/respawn.png" type="Texture" id=20]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 10.5, 24.5 )
@@ -431,6 +432,30 @@ region = Rect2( 32, 64, 32, 64 )
 atlas = ExtResource( 12 )
 region = Rect2( 64, 64, 32, 64 )
 
+[sub_resource type="AtlasTexture" id=112]
+atlas = ExtResource( 20 )
+region = Rect2( 0, 0, 32, 64 )
+
+[sub_resource type="AtlasTexture" id=113]
+atlas = ExtResource( 20 )
+region = Rect2( 32, 0, 32, 64 )
+
+[sub_resource type="AtlasTexture" id=114]
+atlas = ExtResource( 20 )
+region = Rect2( 64, 0, 32, 64 )
+
+[sub_resource type="AtlasTexture" id=115]
+atlas = ExtResource( 20 )
+region = Rect2( 0, 64, 32, 64 )
+
+[sub_resource type="AtlasTexture" id=116]
+atlas = ExtResource( 20 )
+region = Rect2( 32, 64, 32, 64 )
+
+[sub_resource type="AtlasTexture" id=117]
+atlas = ExtResource( 20 )
+region = Rect2( 64, 64, 32, 64 )
+
 [sub_resource type="AtlasTexture" id=15]
 atlas = ExtResource( 5 )
 region = Rect2( 0, 0, 32, 64 )
@@ -537,6 +562,11 @@ animations = [ {
 "name": "RecoilUp",
 "speed": 24.0
 }, {
+"frames": [ SubResource( 112 ), SubResource( 113 ), SubResource( 114 ), SubResource( 115 ), SubResource( 116 ), SubResource( 117 ) ],
+"loop": false,
+"name": "Recover",
+"speed": 12.0
+}, {
 "frames": [ SubResource( 15 ), SubResource( 16 ), SubResource( 17 ), SubResource( 18 ), SubResource( 19 ), SubResource( 20 ) ],
 "loop": true,
 "name": "Run",
@@ -595,7 +625,8 @@ position = Vector2( 30, 0 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( -2, -7 )
 frames = SubResource( 2 )
-animation = "Recoil"
+animation = "Recover"
+frame = 5
 playing = true
 
 [node name="SleepingTimer" type="Timer" parent="."]
