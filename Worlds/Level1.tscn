@@ -1075,9 +1075,6 @@ format = 1
 [node name="Player" parent="." instance=ExtResource( 1 )]
 position = Vector2( -575, 37 )
 
-[node name="AnimatedSprite" parent="Player" index="3"]
-frame = 1
-
 [node name="Path2D" type="Path2D" parent="."]
 curve = SubResource( 76 )
 
@@ -1133,6 +1130,7 @@ position = Vector2( -1.9679, 1.06189 )
 rotation = -1.60194
 
 [node name="AnimatedSprite" parent="Path2D4/PathFollow2D/Enemy" index="1"]
+frame = 2
 flip_h = true
 
 [node name="RayCast2D" parent="Path2D4/PathFollow2D/Enemy/EnemyLaser2" index="0"]

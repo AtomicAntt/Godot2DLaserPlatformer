@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/office_decorations.png-fee4b459a7fab5994206a5f176a5cd99.stex"
+path="res://.import/office decorations.png-b81bc109bc4957d42fa61dc655c95391.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://GameAssets/Props/office_decorations.png"
-dest_files=[ "res://.import/office_decorations.png-fee4b459a7fab5994206a5f176a5cd99.stex" ]
+source_file="res://GameAssets/Props/office decorations.png"
+dest_files=[ "res://.import/office decorations.png-b81bc109bc4957d42fa61dc655c95391.stex" ]
 
 [params]
 

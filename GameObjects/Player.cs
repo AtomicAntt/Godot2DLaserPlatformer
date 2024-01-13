@@ -292,8 +292,8 @@ public class Player : KinematicBody2D
                 velocity -= (_laser.GlobalPosition - GlobalPosition).Normalized() * _Recoil;
 
                 _soFarLaserDamage += delta;
-                if (_soFarLaserDamage >= 0.1){
-                    _soFarLaserDamage -= 0.1;
+                if (_soFarLaserDamage >= 0.2){
+                    _soFarLaserDamage -= 0.2;
                     Hurt(1);
                 }
 

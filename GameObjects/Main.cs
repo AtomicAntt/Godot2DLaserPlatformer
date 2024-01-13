@@ -21,7 +21,7 @@ public class Main : Node
         _mainMenu = GetNode<Control>("MainMenu");
         _levels = GetNode<Node2D>("Levels");
 
-        LoadLevel("Level3");
+        LoadLevel("Level5");
     }
 
     public void UnloadLevel() 
