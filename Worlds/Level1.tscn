@@ -1075,6 +1075,9 @@ format = 1
 [node name="Player" parent="." instance=ExtResource( 1 )]
 position = Vector2( -575, 37 )
 
+[node name="AnimatedSprite" parent="Player" index="3"]
+frame = 2
+
 [node name="Path2D" type="Path2D" parent="."]
 curve = SubResource( 76 )
 

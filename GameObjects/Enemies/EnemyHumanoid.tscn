@@ -48,12 +48,14 @@ shape = SubResource( 1 )
 position = Vector2( 0, -11 )
 frames = SubResource( 6 )
 animation = "Default"
+frame = 1
 playing = true
 
 [node name="EnemyLaser" parent="." instance=ExtResource( 2 )]
 position = Vector2( 2, -25 )
 z_index = 0
 trackingEnabled = true
+rotationSpeed = 100
 
 [node name="FloorChecker" type="RayCast2D" parent="."]
 position = Vector2( 0, 14 )
