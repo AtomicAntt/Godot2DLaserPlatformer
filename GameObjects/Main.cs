@@ -6,6 +6,7 @@ public class Main : Node
     // Onready variables that can be referenced
     private Control _mainMenu; 
     private Node2D _levels;
+    private DialogueBox _dialogueBox;
 
     private Label _keycardStatus;
 
@@ -17,6 +18,7 @@ public class Main : Node
 
     public float restartConfirmation = 0;
 
+    public bool helperBotDestroyed = false; // Purpose: If you load next level while the instance of helper bot is dead, this will activate a boss at the end
 
     private Node2D _levelInstance;
 
@@ -25,6 +27,7 @@ public class Main : Node
         _mainMenu = GetNode<Control>("MainMenu");
         _levels = GetNode<Node2D>("Levels");
         _keycardStatus = GetNode<Label>("Levels/CanvasLayer/Control/KeycardStatus");
+        _dialogueBox = GetNode<DialogueBox>("Levels/CanvasLayer/Control/DialogueBox");
 
         LoadLevel("Level0");
     }
@@ -45,16 +48,42 @@ public class Main : Node
         if (levelResource != null){
             _levelInstance = levelResource.Instance<Node2D>();
             _levels.AddChild(_levelInstance);
+
+            // This is to initialize dialogue during start of each game
+            if (currentLevel == 0)
+            {
+                _dialogueBox.StartTutorialText();
+            }
+            else
+            {
+                _dialogueBox.StartLevelText(currentLevel);
+            }
+
         }
+
     }
 
     // door calls this
     public bool LoadNextLevel()
     {
-        if ((currentLevel >= numLevels))
+        if (currentLevel >= numLevels)
         {
             GD.Print("current level is already at or somehow greater than numlevels, so i cant load the next level!");
             return false;
+        }
+
+        // Purpose: When you go through the door, this function is called right, so we need to check if the helper bot is gonna be there
+        if (GetTree().GetNodesInGroup("helperBot").Count > 0)
+        {
+            HelperBot helperBot = GetTree().GetNodesInGroup("helperBot")[0] as HelperBot;
+
+            if (IsInstanceValid(helperBot))
+            {
+                if (helperBot.destroyed)
+                {
+                    helperBotDestroyed = true;
+                }
+            }
         }
 
         LoadLevel("Level" + (currentLevel+=1));
@@ -68,14 +97,15 @@ public class Main : Node
         {
             return;
         }
-        if (GetTree().GetNodesInGroup("keycard").Count == 0 && !player.hasKeycard)
+        if (player.hasKeycard)
+        {
+            _keycardStatus.Visible = true;
+            _keycardStatus.Text = "Keycard obtained! Find the door to proceed to the next level!";
+        }
+        else if (GetTree().GetNodesInGroup("keycard").Count == 0 && !player.hasKeycard)
         {
             _keycardStatus.Visible = true;
             _keycardStatus.Text = "There are no keycards left in the map! Hold 'R' to restart the level!";
-        }
-        else if (player.hasKeycard){
-            _keycardStatus.Visible = true;
-            _keycardStatus.Text = "Keycard obtained! Find the door to proceed to the next level!";
         }
         else
         {
@@ -91,7 +121,7 @@ public class Main : Node
     public override void _PhysicsProcess(float delta)
     {
         CheckKeycardStatus();
-        if (Input.IsActionPressed("restart"))
+        if (Input.IsActionPressed("restart") && currentLevel != 0)
         {
             restartConfirmation += delta;
             if (restartConfirmation >= 0.2)

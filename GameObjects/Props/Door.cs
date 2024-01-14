@@ -22,6 +22,7 @@ public class Door : Area2D
     {
         if (body.IsInGroup("player"))
         {
+            _player = body as Player;
             _label.Visible = true;
             if (_player.hasKeycard)
             {

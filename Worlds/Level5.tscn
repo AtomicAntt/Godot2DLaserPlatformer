@@ -1443,7 +1443,7 @@ position = Vector2( -575, 37 )
 
 [node name="AnimatedSprite" parent="Player" index="3"]
 animation = "Idle"
-frame = 1
+frame = 4
 
 [node name="Keycard" parent="." instance=ExtResource( 14 )]
 position = Vector2( 239, -551 )

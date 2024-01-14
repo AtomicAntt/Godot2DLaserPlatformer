@@ -99,6 +99,12 @@ public class Laser : Node2D
                             enemy.Destruct();
                             break; // purpose: only need to destruct the enemy one time
                         }
+                        if (collider.IsInGroup("helperBot"))
+                        {
+                            HelperBot helperBot = (HelperBot)collider;
+                            helperBot.Destroy();
+                            break;
+                        }
                     }
 
                     // Now, is it a keycard or computer?

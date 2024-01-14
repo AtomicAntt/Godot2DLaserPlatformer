@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/explode1.wav-87e7463ec51191900736631a5383dc38.sample"
+path="res://.import/sleep.wav-3190d3c39774028d8314c261f36d85b8.sample"
 
 [deps]
 
-source_file="res://GameAssets/Sounds/explode1.wav"
-dest_files=[ "res://.import/explode1.wav-87e7463ec51191900736631a5383dc38.sample" ]
+source_file="res://GameAssets/SoundEffects/anime girl sfx/sleep.wav"
+dest_files=[ "res://.import/sleep.wav-3190d3c39774028d8314c261f36d85b8.sample" ]
 
 [params]
 

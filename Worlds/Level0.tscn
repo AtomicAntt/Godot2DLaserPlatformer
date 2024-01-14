@@ -1,4 +1,4 @@
-[gd_scene load_steps=102 format=2]
+[gd_scene load_steps=103 format=2]
 
 [ext_resource path="res://GameObjects/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://GameAssets/PrototypeTileset_32x32.png" type="Texture" id=2]
@@ -15,6 +15,7 @@
 [ext_resource path="res://GameObjects/Props/Door.tscn" type="PackedScene" id=13]
 [ext_resource path="res://GameAssets/Props/computer.png" type="Texture" id=14]
 [ext_resource path="res://GameAssets/Props/office decorations.png" type="Texture" id=15]
+[ext_resource path="res://GameObjects/HelperBot.tscn" type="PackedScene" id=16]
 
 [sub_resource type="ConvexPolygonShape2D" id=2]
 points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
@@ -1322,7 +1323,7 @@ points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
 22/shapes = [  ]
 22/z_index = 0
 
-[node name="Level1" type="Node2D" groups=["level"]]
+[node name="Level0" type="Node2D" groups=["level"]]
 script = ExtResource( 3 )
 
 [node name="DestructableTilemap" type="TileMap" parent="."]
@@ -1355,9 +1356,12 @@ hasKeycard = true
 
 [node name="AnimatedSprite" parent="Player" index="3"]
 animation = "Idle"
-frame = 5
+frame = 4
 
 [node name="Door" parent="." instance=ExtResource( 13 )]
 position = Vector2( 80, 32 )
+
+[node name="HelperBot" parent="." instance=ExtResource( 16 )]
+position = Vector2( -472, -57 )
 
 [editable path="Player"]

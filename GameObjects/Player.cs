@@ -3,7 +3,10 @@ using System;
 
 public class Player : KinematicBody2D
 {
-    public enum States {AIR, FLOOR, DEAD, CHARGING, SHOOTING, RECOVER};
+    public enum States {AIR, FLOOR, DEAD, CHARGING, SHOOTING, RECOVER, INACTIVE};
+
+    [Signal]
+    delegate void ShotLaser();
 
     [Export]
     public States state = States.AIR;
@@ -47,6 +50,16 @@ public class Player : KinematicBody2D
         HealthBar healthBar = GetTree().GetNodesInGroup("healthBar")[0] as HealthBar;
 
         healthBar.ResetHealth();
+    }
+
+    public void DisableMovement()
+    {
+        state = States.INACTIVE;
+    }
+
+    public void EnableMovement()
+    {
+        state = States.AIR;
     }
 
     public bool GetHorizontalMovement()
@@ -189,6 +202,7 @@ public class Player : KinematicBody2D
 
     public void SetShooting()
     {
+        EmitSignal("ShotLaser"); // Purpose: For tutorial level
         state = States.SHOOTING;
         _sprite.Play("Recoil");
         Hurt(1); // Every time you start the laser, you take at least one damage
@@ -243,7 +257,7 @@ public class Player : KinematicBody2D
     public override void _PhysicsProcess(float delta)
     {
         velocity = MoveAndSlide(velocity, Vector2.Up);
-        if (state != States.DEAD)
+        if (state != States.DEAD && state != States.INACTIVE)
         {
             MoveLaserToMouse();
             ManageLaserShooting();
@@ -316,6 +330,8 @@ public class Player : KinematicBody2D
             case States.RECOVER:
                 Fall(delta);
                 velocity.x = Mathf.Lerp(velocity.x, 0, 0.5f);
+                break;
+            case States.INACTIVE:
                 break;
 
         }

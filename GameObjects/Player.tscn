@@ -625,8 +625,8 @@ position = Vector2( 30, 0 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( -2, -7 )
 frames = SubResource( 2 )
-animation = "Recover"
-frame = 5
+animation = "Idle2"
+frame = 17
 playing = true
 
 [node name="SleepingTimer" type="Timer" parent="."]

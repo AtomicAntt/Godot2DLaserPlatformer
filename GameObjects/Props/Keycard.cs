@@ -21,7 +21,8 @@ public class Keycard : Area2D
     {
         if (body.IsInGroup("player"))
         {
-            _player.hasKeycard = true;
+            Player player = body as Player;
+            player.hasKeycard = true;
             // Main main = GetTree().GetNodesInGroup("main")[0] as Main;
             // main.CheckKeycardStatus();
             QueueFree();
