@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Mikki\\Desktop\\ConsequenceGameJam\\Consequence.csproj": {}
+    "C:\\Users\\Mikki\\Desktop\\Godot2DLaserPlatformer\\Consequence.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Mikki\\Desktop\\ConsequenceGameJam\\Consequence.csproj": {
+    "C:\\Users\\Mikki\\Desktop\\Godot2DLaserPlatformer\\Consequence.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Mikki\\Desktop\\ConsequenceGameJam\\Consequence.csproj",
+        "projectUniqueName": "C:\\Users\\Mikki\\Desktop\\Godot2DLaserPlatformer\\Consequence.csproj",
         "projectName": "Consequence",
-        "projectPath": "C:\\Users\\Mikki\\Desktop\\ConsequenceGameJam\\Consequence.csproj",
+        "projectPath": "C:\\Users\\Mikki\\Desktop\\Godot2DLaserPlatformer\\Consequence.csproj",
         "packagesPath": "C:\\Users\\Mikki\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Mikki\\Desktop\\ConsequenceGameJam\\.mono\\temp\\obj\\",
+        "outputPath": "C:\\Users\\Mikki\\Desktop\\Godot2DLaserPlatformer\\.mono\\temp\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Mikki\\AppData\\Roaming\\NuGet\\NuGet.Config",

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "mXwikiH6Bbz1T5JaYd2m8hD9FTJ9zEapqXVIb8k+MmF598VAkDP1UkzkuN5gRchWHCJKDLQwuv1Kn9hkncYn6g==",
+  "dgSpecHash": "veU0i511RH3fJobPGJaSIYJa3nJ6S2Zanhng9NLs4aKDl7CLdQzDuT5vGCboBI/2aSnZTumk54Gc8rLCVYQThg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Mikki\\Desktop\\ConsequenceGameJam\\Consequence.csproj",
+  "projectFilePath": "C:\\Users\\Mikki\\Desktop\\Godot2DLaserPlatformer\\Consequence.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Mikki\\.nuget\\packages\\microsoft.netframework.referenceassemblies\\1.0.3\\microsoft.netframework.referenceassemblies.1.0.3.nupkg.sha512",
     "C:\\Users\\Mikki\\.nuget\\packages\\microsoft.netframework.referenceassemblies.net472\\1.0.3\\microsoft.netframework.referenceassemblies.net472.1.0.3.nupkg.sha512"

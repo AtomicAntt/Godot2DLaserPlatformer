@@ -1323,7 +1323,7 @@ points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
 22/shapes = [  ]
 22/z_index = 0
 
-[node name="Level0" type="Node2D" groups=["level"]]
+[node name="Level1" type="Node2D" groups=["level"]]
 script = ExtResource( 3 )
 
 [node name="DestructableTilemap" type="TileMap" parent="."]
@@ -1350,18 +1350,20 @@ cell_size = Vector2( 32, 32 )
 format = 1
 tile_data = PoolIntArray( -458780, 21, 0, 65498, 22, 0, 65516, 0, 0, 65528, 22, 0 )
 
+[node name="HelperBot" parent="." instance=ExtResource( 16 )]
+position = Vector2( -523, -12 )
+state = 0
+
 [node name="Player" parent="." instance=ExtResource( 1 )]
 position = Vector2( -559, 39 )
 hasKeycard = true
+laserEnabled = false
 
 [node name="AnimatedSprite" parent="Player" index="3"]
 animation = "Idle"
-frame = 0
+frame = 4
 
 [node name="Door" parent="." instance=ExtResource( 13 )]
 position = Vector2( 80, 32 )
-
-[node name="HelperBot" parent="." instance=ExtResource( 16 )]
-position = Vector2( -472, -57 )
 
 [editable path="Player"]
