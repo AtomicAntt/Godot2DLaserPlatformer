@@ -8,7 +8,11 @@ public class Main : Node
     private Node2D _levels;
     private DialogueBox _dialogueBox;
 
+    private CanvasLayer _canvasLayer;
+
     private Label _keycardStatus;
+
+    public bool inGame = false;
 
     [Export]
     public int currentLevel = 0;
@@ -28,8 +32,18 @@ public class Main : Node
         _levels = GetNode<Node2D>("Levels");
         _keycardStatus = GetNode<Label>("Levels/CanvasLayer/Control/KeycardStatus");
         _dialogueBox = GetNode<DialogueBox>("Levels/CanvasLayer/Control/DialogueBox");
+        _canvasLayer = GetNode<CanvasLayer>("Levels/CanvasLayer");
 
+        // LoadLevel("Level0");
+    }
+
+    public void _on_PlayButton_pressed()
+    {
+        GD.Print("Hello world :(");
+        _canvasLayer.Visible = true;
+        _mainMenu.Visible = false;
         LoadLevel("Level0");
+        inGame = true;
     }
 
     public void UnloadLevel() 
@@ -120,19 +134,22 @@ public class Main : Node
 
     public override void _PhysicsProcess(float delta)
     {
-        CheckKeycardStatus();
-        if (Input.IsActionPressed("restart") && currentLevel != 0)
+        if (inGame)
         {
-            restartConfirmation += delta;
-            if (restartConfirmation >= 0.2)
+            CheckKeycardStatus();
+            if (Input.IsActionPressed("restart") && currentLevel != 0)
             {
-                RestartLevel();
+                restartConfirmation += delta;
+                if (restartConfirmation >= 0.2)
+                {
+                    RestartLevel();
+                    restartConfirmation = 0;
+                }
+            }
+            else
+            {
                 restartConfirmation = 0;
             }
-        }
-        else
-        {
-            restartConfirmation = 0;
         }
     }
 }
