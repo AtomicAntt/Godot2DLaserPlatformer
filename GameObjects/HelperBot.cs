@@ -34,13 +34,18 @@ public class HelperBot : KinematicBody2D
 
 	public void Destroy()
 	{
-		state = States.DESTROYED;
-		destroyed = true;
-		SetCollisionMaskBit(0, true);
+		if (!destroyed)
+		{
+			state = States.DESTROYED;
+			destroyed = true;
+			SetCollisionMaskBit(0, true);
 
-		DialogueBox dialogueBox = GetTree().GetNodesInGroup("dialogueBox")[0] as DialogueBox;
-		dialogueBox.StopDialogue(); // Oh.. you just killed me, dead bots cant speak :(
+			GetNode<AudioStreamPlayer>("Destroyed").Play();
 
+
+			DialogueBox dialogueBox = GetTree().GetNodesInGroup("dialogueBox")[0] as DialogueBox;
+			dialogueBox.StopDialogue(); // Oh.. you just killed me, dead bots cant speak :(
+		}
 	}
 
 	public override void _PhysicsProcess(float delta)

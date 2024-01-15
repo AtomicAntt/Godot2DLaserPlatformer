@@ -49,6 +49,7 @@ public class Main : Node
 	public AudioStreamPlayer restart;
 
 	private Control _pauseMenu;
+	private Control _gameOverMenu;
 
 	public override void _Ready()
 	{
@@ -72,6 +73,8 @@ public class Main : Node
 		_loadNextLevel = GetNode<AudioStreamPlayer>("NextLevel");
 
 		_pauseMenu = GetNode<Control>("Levels/CanvasLayer/PauseMenu");
+		_gameOverMenu = GetNode<Control>("Levels/CanvasLayer/GameOverMenu");
+
 
 		_mainMenu.Visible = true;
 		_cutscene.Visible = false;
@@ -81,13 +84,17 @@ public class Main : Node
 
 	public void _on_PlayButton_pressed()
 	{
+		_mainMenuMusic.Stop();
+		_gameMusic.Play();
 		_confirm.Play();
 		_canvasLayer.Visible = true;
 		_mainMenu.Visible = false;
-		LoadLevel("Level0");
 		inGame = true;
-		_mainMenuMusic.Stop();
+		LoadLevel("Level0");
 		_gameMusic.Play();
+		// inGame = true;
+		// _mainMenuMusic.Stop();
+		// _gameMusic.Play();
 	}
 
 	public void _on_Button_mouse_entered()
@@ -125,6 +132,9 @@ public class Main : Node
 
 		}
 
+		_mainMenuMusic.Stop();
+
+
 	}
 
 	// door calls this
@@ -148,13 +158,16 @@ public class Main : Node
 		if (currentLevel >= numLevels)
 		{
 			// load endings
-			if ((currentLevel == 7))
+			if (currentLevel == 7)
 			{
 				// bad ending
 				if (helperBotDestroyed)
 				{
 					currentLevel = 9;
+					_keycardStatus.Visible = false;
 					_keycardIcon.Visible = false;
+					_gameMusic.Stop();
+					GetNode<AudioStreamPlayer>("BossMusic").Play();
 					LoadLevel("Level8b");
 					return;
 				}
@@ -162,7 +175,6 @@ public class Main : Node
 				{
 				// good ending
 					currentLevel = 8;
-					
 					LoadLevel("Level8a");
 					return;
 				}
@@ -174,6 +186,11 @@ public class Main : Node
 				_keycardIcon.Visible = false;
 				_ui.Visible = false;
 				_cutscene.Visible = true;
+
+				_gameMusic.Stop();
+				GetNode<AudioStreamPlayer>("GoodEndMusic").Play();
+
+
 				_dialogueBox.StartCutscene(1);
 				return;
 			}
@@ -183,6 +200,10 @@ public class Main : Node
 				_keycardIcon.Visible = false;
 				_ui.Visible = false;
 				_cutscene.Visible = true;
+
+				GetNode<AudioStreamPlayer>("BossMusic").Stop();
+				GetNode<AudioStreamPlayer>("BadEndMusic").Play();
+
 				_dialogueBox.StartCutscene(2);
 				return;
 			}
@@ -229,16 +250,13 @@ public class Main : Node
 		{
 			return;
 		}
-		if (currentLevel >= 8){
-			return;
-		}
 		else if (player.hasKeycard)
 		{
 			_keycardIcon.Visible = true;
 			_keycardStatus.Visible = true;
 			_keycardStatus.Text = "Keycard obtained! Find the door to proceed to the next level!";
 		}
-		else if (GetTree().GetNodesInGroup("keycard").Count == 0 && !player.hasKeycard)
+		else if (GetTree().GetNodesInGroup("keycard").Count == 0 && !player.hasKeycard && currentLevel <= numLevels)
 		{
 			_keycardStatus.Visible = true;
 			_keycardStatus.Text = "There are no keycards left in the map! Hold 'R' to restart the level!";
@@ -252,16 +270,34 @@ public class Main : Node
 	public void RestartLevel()
 	{
 		restart.Play();
+		_gameOverMenu.Visible = false;
+		_pauseMenu.Visible = false;
+		// oh my god
+		GetTree().Paused = false;
+		// _gameMusic.StreamPaused = _gameMusic.StreamPaused;
+		if (GetTree().Paused)
+		{
+			_gameMusic.VolumeDb = -30;
+		}
+		else
+		{
+			_gameMusic.VolumeDb = 0;
+		}
+		GetNode<AudioStreamPlayer>("Pause").Play();
+
 		if (currentLevel == 8)
 		{
 			LoadLevel("Level8a");
+			return;
 		}
 		if (currentLevel == 9)
 		{
 			LoadLevel("Level8b");
+			return;
 		}
-		LoadLevel("Level" + (currentLevel));
+		LoadLevel("Level" + currentLevel);
 		enemyCount = 0;
+		GetTree().Paused = false;
 	}
 
 	public void updateEnemyCount()
@@ -274,6 +310,11 @@ public class Main : Node
 		if (inGame)
 		{
 			CheckKeycardStatus();
+
+			// if (currentLevel <= numLevels)
+			// {
+			// 	CheckKeycardStatus();
+			// }
 			if (Input.IsActionPressed("restart") && currentLevel != 0)
 			{
 				restartConfirmation += delta;
@@ -293,15 +334,132 @@ public class Main : Node
 			{
 				GetTree().Paused = !GetTree().Paused;
 				_pauseMenu.Visible = !_pauseMenu.Visible;
-				_gameMusic.StreamPaused = !_gameMusic.StreamPaused;
+				// _gameMusic.StreamPaused = _gameMusic.StreamPaused;
+				if (GetTree().Paused)
+				{
+					_gameMusic.VolumeDb = -30;
+				}
+				else
+				{
+					_gameMusic.VolumeDb = 0;
+				}
+				GetNode<AudioStreamPlayer>("Pause").Play();
 			}
 		}
 	}
+
+	public void GameOver()
+	{
+		Player player = GetTree().GetNodesInGroup("player")[0] as Player;
+		GetTree().Paused = !GetTree().Paused;
+		_gameOverMenu.Visible = !_gameOverMenu.Visible;
+		// _gameMusic.StreamPaused = _gameMusic.StreamPaused;
+		if (GetTree().Paused)
+		{
+			_gameMusic.VolumeDb = -30;
+		}
+		else
+		{
+			_gameMusic.VolumeDb = 0;
+		}
+		GetNode<AudioStreamPlayer>("Pause").Play();
+	}
+	
+
+	public void _on_ResumeGame_pressed()
+	{
+		// spaghetti alert, above code is indeed the code
+		Player player = GetTree().GetNodesInGroup("player")[0] as Player;
+
+		if (player.state != Player.States.DEAD)
+			{
+				GetTree().Paused = !GetTree().Paused;
+				_pauseMenu.Visible = !_pauseMenu.Visible;
+				// _gameMusic.StreamPaused = _gameMusic.StreamPaused;
+				if (GetTree().Paused)
+				{
+					_gameMusic.VolumeDb = -30;
+				}
+				else
+				{
+					_gameMusic.VolumeDb = 0;
+				}
+				GetNode<AudioStreamPlayer>("Pause").Play();
+			}
+	}
+
+	public void _on_RestartGame_pressed()
+	{
+		RestartLevel();
+	}
+
+	public void _on_QuitGame_pressed()
+	{
+
+		// For when you come back into the game
+
+		_mainMenu.Visible = false;
+		_gameOverMenu.Visible = false;
+		GetTree().Paused = false;
+		_confirm.Play();
+		_canvasLayer.Visible = false;
+		_mainMenu.Visible = true;
+		// UnloadLevel();
+		inGame = false;
+		_mainMenuMusic.Play();
+		_gameMusic.Stop();
+		GetNode<AudioStreamPlayer>("BossMusic").Stop();
+		GetNode<AudioStreamPlayer>("GoodEndMusic").Stop();
+		GetNode<AudioStreamPlayer>("BadEndMusic").Stop();
+		currentLevel = 0;
+		totalCount = 0;
+		enemyCount = 0;
+
+		helperBotDestroyed = false;
+
+		Player player = GetTree().GetNodesInGroup("player")[0] as Player;
+
+		if (player.state != Player.States.DEAD)
+		{
+			{
+				GetTree().Paused = !GetTree().Paused;
+				_pauseMenu.Visible = !_pauseMenu.Visible;
+				// _gameMusic.StreamPaused = _gameMusic.StreamPaused;
+				if (GetTree().Paused)
+				{
+					_gameMusic.VolumeDb = -30;
+				}
+				else
+				{
+					_gameMusic.VolumeDb = 0;
+				}
+				GetNode<AudioStreamPlayer>("Pause").Play();
+			}
+		}
+
+		UnloadLevel();
+		GetTree().Paused = false;
+	}
+
+
 
 	public void DestroyTileSound()
 	{
 		AudioStreamPlayer destroyTile = GetNode<AudioStreamPlayer>("DestroyTile" + (GD.Randi() % 3 + 1));
 		// AudioStreamPlayer destroyTile = GetNode<AudioStreamPlayer>("DestroyTile2");
 		destroyTile.Play();
+	}
+
+	public void _on_QuitButton_pressed()
+	{
+		// GetTree().Quit();
+		// if (OS.HasFeature("HTML5"))
+		// {
+		// 	GetNode<Label>("Levels/MainMenu/VBoxContainer/QuitButton/Label").Text = "Disabled on Web";
+		// }
+		// else
+		// {
+		// 	GetTree().Quit();
+		// }
 	}
 }

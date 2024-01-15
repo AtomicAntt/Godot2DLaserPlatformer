@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=2]
+[gd_scene load_steps=67 format=2]
 
 [ext_resource path="res://GameObjects/Main.cs" type="Script" id=1]
 [ext_resource path="res://GameAssets/Fonts/m5x7.ttf" type="DynamicFontData" id=2]
@@ -9,7 +9,7 @@
 [ext_resource path="res://GameObjects/HealthBar.cs" type="Script" id=7]
 [ext_resource path="res://GameAssets/UI/ui_box.png" type="Texture" id=8]
 [ext_resource path="res://GameObjects/DialogueBox.cs" type="Script" id=9]
-[ext_resource path="res://GameAssets/UI/TitleScreen/000.png" type="Texture" id=10]
+[ext_resource path="res://GameAssets/UI/TitleScreen/titleScreen.tres" type="Texture" id=10]
 [ext_resource path="res://GameAssets/UI/TitleScreen/button.png" type="Texture" id=11]
 [ext_resource path="res://GameAssets/UI/TitleScreen/hover.png" type="Texture" id=12]
 [ext_resource path="res://GameAssets/UI/TitleScreen/pressed.png" type="Texture" id=13]
@@ -31,15 +31,29 @@
 [ext_resource path="res://GameAssets/SoundEffects/GameEvent/NextLevel.wav" type="AudioStream" id=29]
 [ext_resource path="res://GameAssets/SoundEffects/GameEvent/DestroyedKeycard.wav" type="AudioStream" id=30]
 [ext_resource path="res://GameAssets/SoundEffects/UI/Restart.wav" type="AudioStream" id=31]
+[ext_resource path="res://GameAssets/SoundEffects/TutorialBot/beep2.wav" type="AudioStream" id=32]
+[ext_resource path="res://GameAssets/SoundEffects/TutorialBot/beep3.wav" type="AudioStream" id=33]
+[ext_resource path="res://GameAssets/SoundEffects/TutorialBot/beep4.wav" type="AudioStream" id=34]
+[ext_resource path="res://GameAssets/SoundEffects/TutorialBot/beep1.wav" type="AudioStream" id=35]
+[ext_resource path="res://GameAssets/SoundEffects/TutorialBot/beep5.wav" type="AudioStream" id=36]
+[ext_resource path="res://GameAssets/UI/TitleScreen/logo.png" type="Texture" id=37]
+[ext_resource path="res://GameAssets/SoundEffects/TutorialBot/Boss/7.wav" type="AudioStream" id=38]
+[ext_resource path="res://GameAssets/SoundEffects/TutorialBot/Boss/beeep 8.wav" type="AudioStream" id=39]
+[ext_resource path="res://GameAssets/SoundEffects/TutorialBot/Boss/beep9.wav" type="AudioStream" id=40]
+[ext_resource path="res://GameAssets/SoundEffects/TutorialBot/Boss/beep10.wav" type="AudioStream" id=41]
+[ext_resource path="res://GameAssets/SoundEffects/TutorialBot/Boss/beep11.wav" type="AudioStream" id=42]
+[ext_resource path="res://GameAssets/SoundEffects/GameEvent/Pause.wav" type="AudioStream" id=43]
+[ext_resource path="res://GameAssets/Music/a_promise_beneath_the_stars_piano_arrangement_-_11124_9.14_PM.wav" type="AudioStream" id=44]
+[ext_resource path="res://GameAssets/Music/solitudes_call.wav" type="AudioStream" id=45]
+[ext_resource path="res://GameAssets/Music/wishes beneath a streetlamp game arrangement - 11124, 9.59 PM.wav" type="AudioStream" id=46]
+[ext_resource path="res://GameAssets/SoundEffects/DestroyTile/Retro Impact LoFi 09.wav" type="AudioStream" id=47]
+[ext_resource path="res://GameAssets/SoundEffects/GameEvent/GetKeycard.wav" type="AudioStream" id=48]
 
 [sub_resource type="DynamicFont" id=8]
 font_data = ExtResource( 2 )
 
 [sub_resource type="Theme" id=9]
 default_font = SubResource( 8 )
-
-[sub_resource type="AnimatedTexture" id=15]
-frame_0/texture = ExtResource( 10 )
 
 [sub_resource type="DynamicFont" id=1]
 font_data = ExtResource( 2 )
@@ -221,14 +235,14 @@ theme = SubResource( 9 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_right = 6.0
-texture = SubResource( 15 )
+texture = ExtResource( 10 )
 expand = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MainMenu"]
 margin_left = 76.0
-margin_top = 353.0
+margin_top = 377.0
 margin_right = 177.0
-margin_bottom = 415.0
+margin_bottom = 439.0
 rect_scale = Vector2( 3, 3 )
 
 [node name="PlayButton" type="TextureButton" parent="MainMenu/VBoxContainer"]
@@ -250,30 +264,10 @@ margin_right = 62.0
 margin_bottom = 21.0
 text = "PLAY"
 
-[node name="SettingsButton" type="TextureButton" parent="MainMenu/VBoxContainer"]
+[node name="QuitButton" type="TextureButton" parent="MainMenu/VBoxContainer"]
 margin_top = 33.0
 margin_right = 101.0
 margin_bottom = 62.0
-texture_normal = ExtResource( 11 )
-texture_pressed = ExtResource( 13 )
-texture_hover = ExtResource( 12 )
-
-[node name="CenterContainer" type="CenterContainer" parent="MainMenu/VBoxContainer/SettingsButton"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-mouse_filter = 2
-
-[node name="Label" type="Label" parent="MainMenu/VBoxContainer/SettingsButton/CenterContainer"]
-margin_left = 26.0
-margin_top = 8.0
-margin_right = 74.0
-margin_bottom = 21.0
-text = "SETTINGS"
-
-[node name="QuitButton" type="TextureButton" parent="MainMenu/VBoxContainer"]
-margin_top = 66.0
-margin_right = 101.0
-margin_bottom = 95.0
 texture_normal = ExtResource( 11 )
 texture_pressed = ExtResource( 13 )
 texture_hover = ExtResource( 12 )
@@ -289,6 +283,23 @@ margin_top = 8.0
 margin_right = 62.0
 margin_bottom = 21.0
 text = "QUIT"
+
+[node name="TextureRect2" type="TextureRect" parent="MainMenu"]
+margin_left = 56.0
+margin_top = 71.0
+margin_right = 232.0
+margin_bottom = 135.0
+rect_scale = Vector2( 3, 3 )
+texture = ExtResource( 37 )
+
+[node name="TextureRect3" type="TextureRect" parent="MainMenu/TextureRect2"]
+modulate = Color( 0, 0, 0, 0.270588 )
+show_behind_parent = true
+margin_left = -0.333334
+margin_top = 2.0
+margin_right = 175.667
+margin_bottom = 66.0
+texture = ExtResource( 37 )
 
 [node name="Levels" type="Node2D" parent="."]
 pause_mode = 1
@@ -404,6 +415,36 @@ margin_bottom = 59.0
 rect_scale = Vector2( 2, 2 )
 text = "Hello! I have just re-activated you because I want to get outta here!"
 
+[node name="Beep1" type="AudioStreamPlayer" parent="Levels/CanvasLayer/Control/DialogueBox"]
+stream = ExtResource( 35 )
+
+[node name="Beep2" type="AudioStreamPlayer" parent="Levels/CanvasLayer/Control/DialogueBox"]
+stream = ExtResource( 32 )
+
+[node name="Beep3" type="AudioStreamPlayer" parent="Levels/CanvasLayer/Control/DialogueBox"]
+stream = ExtResource( 33 )
+
+[node name="Beep4" type="AudioStreamPlayer" parent="Levels/CanvasLayer/Control/DialogueBox"]
+stream = ExtResource( 34 )
+
+[node name="Beep5" type="AudioStreamPlayer" parent="Levels/CanvasLayer/Control/DialogueBox"]
+stream = ExtResource( 36 )
+
+[node name="BossBeep1" type="AudioStreamPlayer" parent="Levels/CanvasLayer/Control/DialogueBox"]
+stream = ExtResource( 38 )
+
+[node name="BossBeep2" type="AudioStreamPlayer" parent="Levels/CanvasLayer/Control/DialogueBox"]
+stream = ExtResource( 39 )
+
+[node name="BossBeep3" type="AudioStreamPlayer" parent="Levels/CanvasLayer/Control/DialogueBox"]
+stream = ExtResource( 40 )
+
+[node name="BossBeep4" type="AudioStreamPlayer" parent="Levels/CanvasLayer/Control/DialogueBox"]
+stream = ExtResource( 41 )
+
+[node name="BossBeep5" type="AudioStreamPlayer" parent="Levels/CanvasLayer/Control/DialogueBox"]
+stream = ExtResource( 42 )
+
 [node name="Transition" type="ColorRect" parent="Levels/CanvasLayer/Control"]
 modulate = Color( 1, 1, 1, 0 )
 anchor_right = 1.0
@@ -475,6 +516,49 @@ margin_right = 313.0
 margin_bottom = 284.0
 text = "QUIT TO MAIN MENU"
 
+[node name="GameOverMenu" type="Control" parent="Levels/CanvasLayer"]
+pause_mode = 2
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
+[node name="Background" type="ColorRect" parent="Levels/CanvasLayer/GameOverMenu"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 0.192157 )
+
+[node name="CenterContainer" type="CenterContainer" parent="Levels/CanvasLayer/GameOverMenu"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Levels/CanvasLayer/GameOverMenu/CenterContainer"]
+margin_left = 483.0
+margin_top = 259.0
+margin_right = 796.0
+margin_bottom = 461.0
+theme = SubResource( 20 )
+custom_constants/separation = 40
+
+[node name="Label" type="Label" parent="Levels/CanvasLayer/GameOverMenu/CenterContainer/VBoxContainer"]
+margin_right = 313.0
+margin_bottom = 38.0
+text = "Game Over!"
+align = 1
+
+[node name="RestartGame" type="Button" parent="Levels/CanvasLayer/GameOverMenu/CenterContainer/VBoxContainer"]
+margin_top = 78.0
+margin_right = 313.0
+margin_bottom = 120.0
+text = "RESTART"
+
+[node name="QuitGame" type="Button" parent="Levels/CanvasLayer/GameOverMenu/CenterContainer/VBoxContainer"]
+margin_top = 160.0
+margin_right = 313.0
+margin_bottom = 202.0
+text = "QUIT TO MAIN MENU"
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/RESET = SubResource( 13 )
 anims/fadeIn = SubResource( 14 )
@@ -510,7 +594,35 @@ stream = ExtResource( 30 )
 [node name="Restart" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 31 )
 
+[node name="Pause" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 43 )
+
+[node name="BossMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 46 )
+
+[node name="GoodEndMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 44 )
+
+[node name="BadEndMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 45 )
+
+[node name="DamageWall" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 47 )
+
+[node name="GetKeycard" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 48 )
+
 [connection signal="mouse_entered" from="MainMenu/VBoxContainer/PlayButton" to="." method="_on_Button_mouse_entered"]
 [connection signal="pressed" from="MainMenu/VBoxContainer/PlayButton" to="." method="_on_PlayButton_pressed"]
-[connection signal="mouse_entered" from="MainMenu/VBoxContainer/SettingsButton" to="." method="_on_Button_mouse_entered"]
 [connection signal="mouse_entered" from="MainMenu/VBoxContainer/QuitButton" to="." method="_on_Button_mouse_entered"]
+[connection signal="pressed" from="MainMenu/VBoxContainer/QuitButton" to="." method="_on_QuitButton_pressed"]
+[connection signal="mouse_entered" from="Levels/CanvasLayer/PauseMenu/CenterContainer/VBoxContainer/ResumeGame" to="." method="_on_Button_mouse_entered"]
+[connection signal="pressed" from="Levels/CanvasLayer/PauseMenu/CenterContainer/VBoxContainer/ResumeGame" to="." method="_on_ResumeGame_pressed"]
+[connection signal="mouse_entered" from="Levels/CanvasLayer/PauseMenu/CenterContainer/VBoxContainer/RestartGame" to="." method="_on_Button_mouse_entered"]
+[connection signal="pressed" from="Levels/CanvasLayer/PauseMenu/CenterContainer/VBoxContainer/RestartGame" to="." method="_on_RestartGame_pressed"]
+[connection signal="mouse_entered" from="Levels/CanvasLayer/PauseMenu/CenterContainer/VBoxContainer/QuitGame" to="." method="_on_Button_mouse_entered"]
+[connection signal="pressed" from="Levels/CanvasLayer/PauseMenu/CenterContainer/VBoxContainer/QuitGame" to="." method="_on_QuitGame_pressed"]
+[connection signal="mouse_entered" from="Levels/CanvasLayer/GameOverMenu/CenterContainer/VBoxContainer/RestartGame" to="." method="_on_Button_mouse_entered"]
+[connection signal="pressed" from="Levels/CanvasLayer/GameOverMenu/CenterContainer/VBoxContainer/RestartGame" to="." method="_on_RestartGame_pressed"]
+[connection signal="mouse_entered" from="Levels/CanvasLayer/GameOverMenu/CenterContainer/VBoxContainer/QuitGame" to="." method="_on_Button_mouse_entered"]
+[connection signal="pressed" from="Levels/CanvasLayer/GameOverMenu/CenterContainer/VBoxContainer/QuitGame" to="." method="_on_QuitGame_pressed"]

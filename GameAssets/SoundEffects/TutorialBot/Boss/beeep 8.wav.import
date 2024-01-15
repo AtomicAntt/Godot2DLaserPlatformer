@@ -1,0 +1,23 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/beeep 8.wav-c1c44f514c523d97b4ddf2e2281f3fa0.sample"
+
+[deps]
+
+source_file="res://GameAssets/SoundEffects/TutorialBot/Boss/beeep 8.wav"
+dest_files=[ "res://.import/beeep 8.wav-c1c44f514c523d97b4ddf2e2281f3fa0.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

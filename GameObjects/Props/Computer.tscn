@@ -1,8 +1,10 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://GameAssets/Props/computer.png" type="Texture" id=1]
 [ext_resource path="res://GameObjects/Props/Computer.cs" type="Script" id=2]
 [ext_resource path="res://GameAssets/Fonts/m5x7.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://GameAssets/SoundEffects/GameEvent/DestroyedComputer.wav" type="AudioStream" id=4]
+[ext_resource path="res://GameAssets/SoundEffects/GameEvent/Heal.wav" type="AudioStream" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 71, 28 )
@@ -67,6 +69,10 @@ align = 1
 autowrap = true
 
 [node name="Destroyed" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+
+[node name="Heal" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
 
 [connection signal="body_entered" from="." to="." method="_on_Computer_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_Computer_body_exited"]

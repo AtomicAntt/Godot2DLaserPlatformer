@@ -55,6 +55,7 @@ public class Level : Node2D
 		if (_indestructableTilemap.GetCellv(gridPos) != TileMap.InvalidCell)
 		{
 			_indestructableTilemap.SetCellv(gridPos, 3);
+			_main.GetNode<AudioStreamPlayer>("DamageWall").Play();
 		}
 	}
 }

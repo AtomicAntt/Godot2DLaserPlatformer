@@ -26,7 +26,8 @@ public class Keycard : Area2D
 		{
 			Player player = body as Player;
 			player.hasKeycard = true;
-			// Main main = GetTree().GetNodesInGroup("main")[0] as Main;
+			Main main = GetTree().GetNodesInGroup("main")[0] as Main;
+			main.GetNode<AudioStreamPlayer>("GetKeycard").Play();
 			// main.CheckKeycardStatus();
 			QueueFree();
 		}

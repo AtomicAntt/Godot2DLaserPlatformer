@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://GameAssets/NPC/tutorial_drone.png" type="Texture" id=1]
 [ext_resource path="res://GameObjects/HelperBot.cs" type="Script" id=2]
+[ext_resource path="res://GameAssets/SoundEffects/Explode/Retro Explosion Short 15.wav" type="AudioStream" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 15, 6.5 )
@@ -47,3 +48,6 @@ shape = SubResource( 1 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 6 )
 animation = "Default"
+
+[node name="Destroyed" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )

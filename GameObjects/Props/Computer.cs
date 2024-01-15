@@ -65,10 +65,14 @@ public class Computer : Area2D
 
 	public void Destroy()
 	{
-		_sprite.Play("Destroyed");
-		canUse = false;
-		destroyed = true;
-		_shape.Disabled = true;
+		if (!destroyed)
+		{
+			_sprite.Play("Destroyed");
+			canUse = false;
+			destroyed = true;
+			_shape.Disabled = true;
+			GetNode<AudioStreamPlayer>("Destroyed").Play();
+		}
 	}
 
 	public override void _Input(InputEvent @event)
@@ -81,6 +85,7 @@ public class Computer : Area2D
 			used = true;
 			_player.Recover();
 			_label.Text = "You have already used this computer!";
+			GetNode<AudioStreamPlayer>("Heal").Play();
 		}
 	}
 }

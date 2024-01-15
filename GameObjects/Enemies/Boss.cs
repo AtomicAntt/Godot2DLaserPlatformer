@@ -71,6 +71,7 @@ public class Boss : StaticBody2D
 		{
 			// load small drone
 			case 0:
+				GetNode<AudioStreamPlayer>("Beep" + (type+1)).Play();
 				pathing = new Path2D();
 				follow = new PathFollow2D();
 				this.AddChild(pathing);
@@ -94,6 +95,7 @@ public class Boss : StaticBody2D
 				break;
 			// load big drone
 			case 1:
+				GetNode<AudioStreamPlayer>("Beep" + (type+1)).Play();
 				pathing = new Path2D();
 				follow = new PathFollow2D();
 				this.AddChild(pathing);
@@ -112,6 +114,7 @@ public class Boss : StaticBody2D
 				break;
 			// load torus
 			case 2:
+				GetNode<AudioStreamPlayer>("Beep" + (type+1)).Play();
 				pathing = new Path2D();
 				follow = new PathFollow2D();
 				this.AddChild(pathing);
@@ -135,6 +138,7 @@ public class Boss : StaticBody2D
 				break;
 			// load small turret
 			case 3:
+				GetNode<AudioStreamPlayer>("Beep" + (type+1)).Play();
 				enemyPath = "res://GameObjects/Enemies/EnemySmallTurret.tscn";
 				enemyResource = GD.Load<PackedScene>(enemyPath);
 				if (enemyResource != null)
@@ -146,6 +150,7 @@ public class Boss : StaticBody2D
 					break;
 			// load big turret
 			case 4:
+				GetNode<AudioStreamPlayer>("Beep" + (type+1)).Play();
 				enemyPath = "res://GameObjects/Enemies/EnemyTurret.tscn";
 					enemyResource = GD.Load<PackedScene>(enemyPath);
 				if (enemyResource != null)
@@ -157,6 +162,7 @@ public class Boss : StaticBody2D
 				break;
 			// load humanoid
 			case 5:
+				GetNode<AudioStreamPlayer>("Beep" + (type+1)).Play();
 				enemyPath = "res://GameObjects/Enemies/EnemyHumanoid.tscn";
 				enemyResource = GD.Load<PackedScene>(enemyPath);
 				if (enemyResource != null)
@@ -224,7 +230,7 @@ public class Boss : StaticBody2D
 			_sprite.Play("Boss");
 		}
 		else if (_sprite.Animation == "Death"){
-			_status.Text = "You can now leave through the door.";
+			_status.Text = "You can now leave through the door :(";
 		}
 	}
 }

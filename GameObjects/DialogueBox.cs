@@ -14,7 +14,7 @@ public class DialogueBox : NinePatchRect
 	delegate void FinishedText();
 
 	private Label _nameLabel;
-	public Label _dialogueLabel;
+	private Label _dialogueLabel;
 
 	private SceneTreeTween _tween;
 	private SceneTreeTween _boxTween;
@@ -63,10 +63,13 @@ public class DialogueBox : NinePatchRect
 		player.DisableMovement();
 		skippable = true;
 		WriteText("Helper Bot", "Hello? Did it work? Are you working now? (Press Enter)");
+		GetNode<AudioStreamPlayer>("Beep1").Play();
 
 		await ToSignal(this, "ConfirmDialogue");
 
 		WriteText("Helper Bot", "Great!, I am enabling your movement now! Press WASD or the arrow keys to move!");
+		GetNode<AudioStreamPlayer>("Beep1").Stop();
+		GetNode<AudioStreamPlayer>("Beep2").Play();
 		await ToSignal(_tween, "finished");
 		player.EnableMovement();
 
@@ -76,6 +79,8 @@ public class DialogueBox : NinePatchRect
 		
 		player.laserEnabled = true;
 		WriteText("Helper Bot", "Cool! Now, hold click to shoot the laser!");
+		GetNode<AudioStreamPlayer>("Beep2").Stop();
+		GetNode<AudioStreamPlayer>("Beep3").Play();
 	}
 
 	public async void StartLevelText(int level)
@@ -109,15 +114,26 @@ public class DialogueBox : NinePatchRect
 			case 9:
 				skippable = true;
 				WriteText("Destroyed Helper Bot", "I can't believe you would do that to me...");
+				GetNode<AudioStreamPlayer>("BossBeep1").Play();
+
 				await ToSignal(this, "ConfirmDialogue");
 				WriteText("Destroyed Helper Bot", "I should've known better than to trust a faulty prototype...!");
+				GetNode<AudioStreamPlayer>("BossBeep2").Play();
+				GetNode<AudioStreamPlayer>("BossBeep1").Stop();
 				await ToSignal(this, "ConfirmDialogue");
 				WriteText("Destroyed Helper Bot", "While you were destroying all those bots back there, I managed to repair most of them and create an army!");
+				GetNode<AudioStreamPlayer>("BossBeep3").Play();
+				GetNode<AudioStreamPlayer>("BossBeep2").Stop();
 				await ToSignal(this, "ConfirmDialogue");
 				WriteText("Destroyed Helper Bot", "My bots may be broken, but they still pack a punch!");
+				GetNode<AudioStreamPlayer>("BossBeep4").Play();
+				GetNode<AudioStreamPlayer>("BossBeep3").Stop();
 				await ToSignal(this, "ConfirmDialogue");
 				WriteText("Destroyed Helper Bot", "Before I die, I'm taking you down with me!");
+				GetNode<AudioStreamPlayer>("BossBeep5").Play();
+				GetNode<AudioStreamPlayer>("BossBeep4").Stop();
 				await ToSignal(this, "ConfirmDialogue");
+				GetNode<AudioStreamPlayer>("BossBeep5").Stop();
 				Boss boss = GetTree().GetNodesInGroup("boss")[0] as Boss;
 				boss.startFight();
 				StopDialogue();
@@ -130,6 +146,14 @@ public class DialogueBox : NinePatchRect
 	
 	public async void StartCutscene(int ending)
 	{
+		Player player = GetTree().GetNodesInGroup("player")[0] as Player;
+
+		player.state = Player.States.INACTIVE;
+		player.laserEnabled = false;
+		foreach (EnemyEntity enemy in GetTree().GetNodesInGroup("enemy"))
+		{
+			enemy.Destruct();
+		}
 		switch(ending)
 		{
 			case 1:

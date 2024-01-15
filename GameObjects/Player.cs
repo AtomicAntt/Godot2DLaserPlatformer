@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.CodeDom;
 
 public class Player : KinematicBody2D
 {
@@ -220,7 +221,7 @@ public class Player : KinematicBody2D
 		_sprite.Play("Fire");
 		_chargingTimer.Start();
 
-		_laser.chargingParticles.Visible = true;
+		// _laser.chargingParticles.Visible = true;
 		_laser.chargingSprite.Visible = true;
 
 
@@ -240,6 +241,9 @@ public class Player : KinematicBody2D
 		state = States.DEAD;
 		_sprite.Play("Dead");
 		toggleLaser(false);
+
+		Main main = GetTree().GetNodesInGroup("main")[0] as Main;
+		main.GameOver();
 	}
 
 	public void Hurt(int damageTaken)

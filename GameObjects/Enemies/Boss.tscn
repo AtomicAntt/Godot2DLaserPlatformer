@@ -1,8 +1,14 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://GameAssets/enemies/boss.png" type="Texture" id=1]
 [ext_resource path="res://GameAssets/Fonts/m5x7.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://GameObjects/Enemies/Boss.cs" type="Script" id=3]
+[ext_resource path="res://GameAssets/SoundEffects/TutorialBot/Boss/beep6.wav" type="AudioStream" id=4]
+[ext_resource path="res://GameAssets/SoundEffects/TutorialBot/Boss/beep3.wav" type="AudioStream" id=5]
+[ext_resource path="res://GameAssets/SoundEffects/TutorialBot/Boss/beep4.wav" type="AudioStream" id=6]
+[ext_resource path="res://GameAssets/SoundEffects/TutorialBot/Boss/beep1.wav" type="AudioStream" id=7]
+[ext_resource path="res://GameAssets/SoundEffects/TutorialBot/Boss/beep2.wav" type="AudioStream" id=8]
+[ext_resource path="res://GameAssets/SoundEffects/TutorialBot/Boss/beep5.wav" type="AudioStream" id=9]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 26.5, 20.5 )
@@ -137,6 +143,24 @@ text = "Now starting up..."
 align = 1
 valign = 2
 autowrap = true
+
+[node name="Beep1" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 7 )
+
+[node name="Beep2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 8 )
+
+[node name="Beep3" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
+
+[node name="Beep4" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 6 )
+
+[node name="Beep5" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 9 )
+
+[node name="Beep6" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
 
 [connection signal="animation_finished" from="AnimatedSprite" to="." method="_on_AnimatedSprite_animation_finished"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
