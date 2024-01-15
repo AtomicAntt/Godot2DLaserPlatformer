@@ -5,6 +5,8 @@ public class Player : KinematicBody2D
 {
 	public enum States {AIR, FLOOR, DEAD, CHARGING, SHOOTING, RECOVER, INACTIVE};
 
+	public RandomNumberGenerator random = new RandomNumberGenerator();
+
 	[Signal]
 	delegate void ShotLaser();
 
@@ -39,6 +41,9 @@ public class Player : KinematicBody2D
 	private const int _Laser_Radius = 80;
 	private const int _Recoil = 400;
 
+	private AudioStreamPlayer _laserCharge;
+	private AudioStreamPlayer _walking;
+
 	private double _soFarLaserDamage = 0.0; // Purpose: If this reaches >= 0.25, it resets and does 1 damage. It is incremented with delta.
 
 	
@@ -50,6 +55,9 @@ public class Player : KinematicBody2D
 		_chargingTimer = GetNode<Timer>("ChargingTimer");
 		_animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
 
+		_laserCharge = GetNode<AudioStreamPlayer>("LaserCharge");
+		_walking = GetNode<AudioStreamPlayer>("Walking");
+
 		HealthBar healthBar = GetTree().GetNodesInGroup("healthBar")[0] as HealthBar;
 
 		healthBar.ResetHealth();
@@ -57,11 +65,13 @@ public class Player : KinematicBody2D
 
 	public void DisableMovement()
 	{
+		GD.Print("movement disabled");
 		state = States.INACTIVE;
 	}
 
 	public void EnableMovement()
 	{
+		GD.Print("movement enabled");
 		state = States.AIR;
 	}
 
@@ -128,6 +138,7 @@ public class Player : KinematicBody2D
 			// toggleLaser(true);
 
 			SetCharging();
+			_laserCharge.Play();
 
 		}
 		else if (Input.IsActionJustReleased("leftclick"))
@@ -135,9 +146,16 @@ public class Player : KinematicBody2D
 			// _laser.laserShooting = false;
 			// _laser.Visible = false;
 
+			_laserCharge.Stop();
+
 			toggleLaser(false);
 			_sprite.Play("Jump"); // Why fall? Because if you land on the ground or get enough velocity, the correct animation will play
 			state = States.AIR; // Why air? Because if you are on the ground it will instantly set you on floor state.
+
+			_laser.chargingParticles.Visible = false;
+			_laser.chargingSprite.Visible = false;
+
+			_laser.laserShootingSound.Stop();
 		}
 		else if (Input.IsActionPressed("leftclick") && state == States.SHOOTING)
 		{
@@ -201,6 +219,11 @@ public class Player : KinematicBody2D
 		state = States.CHARGING;
 		_sprite.Play("Fire");
 		_chargingTimer.Start();
+
+		_laser.chargingParticles.Visible = true;
+		_laser.chargingSprite.Visible = true;
+
+
 	}
 
 	public void SetShooting()
@@ -240,6 +263,8 @@ public class Player : KinematicBody2D
 			else if (!(state == States.SHOOTING && damageTaken == 1)) // no free immunity for using laser
 			{
 				_animationPlayer.Play("Hurt");
+				AudioStreamPlayer hurt = GetNode<AudioStreamPlayer>("Hurt" + GD.Randi() % 5); // random int 0-4
+				hurt.Play();
 			}
 		}
 
@@ -265,6 +290,11 @@ public class Player : KinematicBody2D
 			MoveLaserToMouse();
 			ManageLaserShooting();
 		}
+
+		if (state != States.SHOOTING)
+		{
+			_laser.laserShootingSound.Stop(); // Why wont it stop no matter what i do? now it will!
+		}
 		
 		switch(state)
 		{
@@ -283,6 +313,10 @@ public class Player : KinematicBody2D
 
 				if (GetHorizontalMovement() && velocity.Abs().Length() > 100)
 				{
+					if (!_walking.Playing)
+					{
+						_walking.Play();
+					}
 					_sprite.Play("Run");
 					_sleepingTimer.Stop(); // Cant go to sleep anymore
 
@@ -290,15 +324,24 @@ public class Player : KinematicBody2D
 				else if (_sprite.Animation == "Run")
 				{
 					SetIdle();
+					_walking.Stop();
+				}
+				else
+				{
+					_walking.Stop();
 				}
 
 				if (Input.IsActionPressed("up"))
 				{
+					_walking.Stop();
+					AudioStreamPlayer jump = GetNode<AudioStreamPlayer>("Jump2");
+					jump.Play();
 					velocity.y += _Jump;
 					state = States.AIR;
 					_sprite.Play("Jump");
 				}
 				else if (!IsOnFloor()){
+					_walking.Stop();
 					state = States.AIR;
 					// _sprite.Play("Fall");
 				}
@@ -309,6 +352,7 @@ public class Player : KinematicBody2D
 				velocity.x = Mathf.Lerp(velocity.x, 0, 0.5f);
 				break;
 			case States.CHARGING:
+				_walking.Stop();
 				GetHorizontalMovement();
 				FaceTowardsMouse(); // After horizontal movement to override the flip
 				ManageDirection("Fire");
@@ -357,6 +401,8 @@ public class Player : KinematicBody2D
 		if (_sprite.Animation == "Idle")
 		{
 			_sprite.Play("Idle2");
+			AudioStreamPlayer sleep = GetNode<AudioStreamPlayer>("Sleeping");
+			sleep.Play();
 		}
 	}
 
@@ -364,6 +410,8 @@ public class Player : KinematicBody2D
 	{
 		if (_sprite.Animation == "Idle2")
 		{
+			AudioStreamPlayer sleep = GetNode<AudioStreamPlayer>("Sleeping");
+			sleep.Stop();
 			SetIdle(); // So they will go back to sleeping again soon
 		}
 		if (_sprite.Animation == "Recover")

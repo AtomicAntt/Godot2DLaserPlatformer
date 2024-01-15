@@ -80,23 +80,31 @@ public class DialogueBox : NinePatchRect
 
 	public async void StartLevelText(int level)
 	{
-		Player player = GetTree().GetNodesInGroup("player")[0] as Player;
-		player.DisableMovement();
+		// Player player = GetTree().GetNodesInGroup("player")[0] as Player;
+		// player.DisableMovement(); discontinuing this because apparently it doesnt sync up and work :(
 		switch(level)
 		{
 			case 1:
+
 				skippable = true;
 				WriteText("Player", "Hmm, looks like there are enemies in the way..");
 				await ToSignal(this, "ConfirmDialogue");
 				StopDialogue();
-				player.EnableMovement();
+				// player.EnableMovement();
+				break;
+			case 2:
+				skippable = true;
+				WriteText("Player", "Hmm, looks like there are enemies in the way..");
+				await ToSignal(this, "ConfirmDialogue");
+				StopDialogue();
+				// player.EnableMovement();
 				break;
 			case 8:
 				skippable = true;
 				WriteText("Helper Bot", "We've finally made it. Go on, open the door.");
 				await ToSignal(this, "ConfirmDialogue");
 				StopDialogue();
-				player.EnableMovement();
+				// player.EnableMovement();
 				break;
 		}
 

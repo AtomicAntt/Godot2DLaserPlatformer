@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=2]
+[gd_scene load_steps=42 format=2]
 
 [ext_resource path="res://GameObjects/Main.cs" type="Script" id=1]
 [ext_resource path="res://GameAssets/Fonts/m5x7.ttf" type="DynamicFontData" id=2]
@@ -21,6 +21,13 @@
 [ext_resource path="res://GameAssets/UI/bad end/002.png" type="Texture" id=19]
 [ext_resource path="res://GameAssets/UI/bad end/000.png" type="Texture" id=20]
 [ext_resource path="res://GameAssets/UI/bad end/001.png" type="Texture" id=21]
+[ext_resource path="res://GameAssets/SoundEffects/DestroyTile/DestroyTile1.wav" type="AudioStream" id=22]
+[ext_resource path="res://GameAssets/SoundEffects/DestroyTile/DestroyTile2.mp3" type="AudioStream" id=23]
+[ext_resource path="res://GameAssets/SoundEffects/DestroyTile/DestroyTile3.wav" type="AudioStream" id=24]
+[ext_resource path="res://GameAssets/Music/starry_hopes_of_a_filled_sky.wav" type="AudioStream" id=25]
+[ext_resource path="res://GameAssets/Music/query_to_an_unidentified_cosmos.wav" type="AudioStream" id=26]
+[ext_resource path="res://GameAssets/SoundEffects/UI/Confirm.wav" type="AudioStream" id=27]
+[ext_resource path="res://GameAssets/SoundEffects/UI/Hover.wav" type="AudioStream" id=28]
 
 [sub_resource type="DynamicFont" id=8]
 font_data = ExtResource( 2 )
@@ -83,6 +90,69 @@ font_data = ExtResource( 2 )
 
 [sub_resource type="Theme" id=6]
 default_font = SubResource( 5 )
+
+[sub_resource type="DynamicFont" id=11]
+size = 48
+font_data = ExtResource( 2 )
+
+[sub_resource type="Theme" id=12]
+default_font = SubResource( 11 )
+
+[sub_resource type="Animation" id=13]
+resource_name = "RESET"
+length = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath("Levels/CanvasLayer/Control/Transition:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Levels/CanvasLayer/Control/Transition/CenterContainer/Label:percent_visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+
+[sub_resource type="Animation" id=14]
+resource_name = "fadeIn"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("Levels/CanvasLayer/Control/Transition:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Levels/CanvasLayer/Control/Transition/CenterContainer/Label:percent_visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 0.0, 1.0 ]
+}
 
 [node name="Main" type="Node" groups=["main"]]
 script = ExtResource( 1 )
@@ -276,6 +346,56 @@ margin_right = 381.0
 margin_bottom = 59.0
 rect_scale = Vector2( 2, 2 )
 text = "Hello! I have just re-activated you because I want to get outta here!"
-autowrap = true
 
+[node name="Transition" type="ColorRect" parent="Levels/CanvasLayer/Control"]
+modulate = Color( 1, 1, 1, 0 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color( 0, 0, 0, 1 )
+
+[node name="CenterContainer" type="CenterContainer" parent="Levels/CanvasLayer/Control/Transition"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
+[node name="Label" type="Label" parent="Levels/CanvasLayer/Control/Transition/CenterContainer"]
+margin_left = 494.0
+margin_top = 341.0
+margin_right = 785.0
+margin_bottom = 379.0
+theme = SubResource( 12 )
+text = "Level # Completed!"
+align = 1
+percent_visible = 0.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/RESET = SubResource( 13 )
+anims/fadeIn = SubResource( 14 )
+
+[node name="DestroyTile1" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 22 )
+
+[node name="DestroyTile2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 23 )
+
+[node name="DestroyTile3" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 24 )
+
+[node name="MainMenuMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 25 )
+autoplay = true
+
+[node name="GameMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 26 )
+
+[node name="Hover" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 28 )
+
+[node name="Confirm" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 27 )
+
+[connection signal="mouse_entered" from="MainMenu/VBoxContainer/PlayButton" to="." method="_on_Button_mouse_entered"]
 [connection signal="pressed" from="MainMenu/VBoxContainer/PlayButton" to="." method="_on_PlayButton_pressed"]
+[connection signal="mouse_entered" from="MainMenu/VBoxContainer/SettingsButton" to="." method="_on_Button_mouse_entered"]
+[connection signal="mouse_entered" from="MainMenu/VBoxContainer/QuitButton" to="." method="_on_Button_mouse_entered"]

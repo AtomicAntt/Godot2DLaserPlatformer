@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/DestroyTile2.mp3-97ef0505af3aa44d93c5078e8fa4a16a.mp3str"
+
+[deps]
+
+source_file="res://GameAssets/SoundEffects/DestroyTile/DestroyTile2.mp3"
+dest_files=[ "res://.import/DestroyTile2.mp3-97ef0505af3aa44d93c5078e8fa4a16a.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

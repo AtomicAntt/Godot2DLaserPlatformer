@@ -13,6 +13,11 @@ public class Laser : Node2D
     private Sprite _startLaser;
     private Player _player;
 
+    public AnimatedSprite chargingSprite;
+    public Particles2D chargingParticles;
+
+    public AudioStreamPlayer laserShootingSound;
+
     public bool laserShooting = false;
 
     public override void _Ready()
@@ -23,6 +28,10 @@ public class Laser : Node2D
         _rayCasts = GetNode<Node2D>("RayCasts");
         _startLaser = GetNode<Sprite>("StartLaser");
         _player = GetParent() as Player;
+        laserShootingSound = GetNode<AudioStreamPlayer>("LaserShooting");
+
+        chargingSprite = GetNode<AnimatedSprite>("ChargingSprite");
+        chargingParticles = GetNode<Particles2D>("ChargingParticle");
 
         _laser.AddPoint(Vector2.Zero);
         _laser.AddPoint(Vector2.Zero);
@@ -54,6 +63,10 @@ public class Laser : Node2D
         // _startLaser.Visible = false;
         // Visible = false;
         laserShooting = false;
+
+        chargingSprite.Visible = false;
+        chargingParticles.Visible = false;
+        laserShootingSound.Stop();
     }
 
     public void startLaser()
@@ -61,6 +74,7 @@ public class Laser : Node2D
         _startLaser.Visible = true;
         Visible = true;
         laserShooting = true;
+        laserShootingSound.Play();
     }
 
     public void destroyTiles(Vector2 destroyPos)

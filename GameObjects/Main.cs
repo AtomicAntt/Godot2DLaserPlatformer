@@ -9,6 +9,7 @@ public class Main : Node
 	private DialogueBox _dialogueBox;
 
 	private CanvasLayer _canvasLayer;
+	private AnimationPlayer _animationPlayer;
 	
 	private VBoxContainer _ui;
 
@@ -32,6 +33,11 @@ public class Main : Node
 
 	private Node2D _levelInstance;
 
+	private AudioStreamPlayer _gameMusic;
+	private AudioStreamPlayer _mainMenuMusic;
+	private AudioStreamPlayer _hover;
+	private AudioStreamPlayer _confirm;
+
 	public override void _Ready()
 	{
 		_mainMenu = GetNode<Control>("MainMenu");
@@ -42,6 +48,13 @@ public class Main : Node
 		_dialogueBox = GetNode<DialogueBox>("Levels/CanvasLayer/Control/DialogueBox");
 		_cutscene = GetNode<AnimatedSprite>("Levels/CanvasLayer/Control/AnimatedSprite");
 		_canvasLayer = GetNode<CanvasLayer>("Levels/CanvasLayer");
+		_animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
+
+		_gameMusic = GetNode<AudioStreamPlayer>("GameMusic");
+		_mainMenuMusic = GetNode<AudioStreamPlayer>("MainMenuMusic");
+		_hover = GetNode<AudioStreamPlayer>("Hover");
+		_confirm = GetNode<AudioStreamPlayer>("Confirm");
+
 		_mainMenu.Visible = true;
 		_cutscene.Visible = false;
 		_canvasLayer.Visible = false;
@@ -50,11 +63,18 @@ public class Main : Node
 
 	public void _on_PlayButton_pressed()
 	{
-		GD.Print("Hello world :(");
+		_confirm.Play();
 		_canvasLayer.Visible = true;
 		_mainMenu.Visible = false;
 		LoadLevel("Level0");
 		inGame = true;
+		_mainMenuMusic.Stop();
+		_gameMusic.Play();
+	}
+
+	public void _on_Button_mouse_entered()
+	{
+		_hover.Play();
 	}
 
 	public void UnloadLevel() 
@@ -90,57 +110,8 @@ public class Main : Node
 	}
 
 	// door calls this
-	public bool LoadNextLevel()
+	public async void LoadNextLevel()
 	{
-		if (currentLevel >= numLevels)
-		{
-			// load endings
-			if ((currentLevel == 7))
-			{
-				// bad ending
-				if (helperBotDestroyed)
-				{
-					currentLevel = 9;
-					_keycardIcon.Visible = false;
-					LoadLevel("Level8b");
-					return true;
-				}
-				else
-				{
-				// good ending
-					currentLevel = 8;
-					
-					LoadLevel("Level8a");
-					return true;
-				}
-			}
-			// call cutscene
-			if ((currentLevel == 8))
-			{
-				_keycardStatus.Visible = false;
-				_keycardIcon.Visible = false;
-				_ui.Visible = false;
-				_cutscene.Visible = true;
-				_dialogueBox.StartCutscene(1);
-				return true;
-			}
-			if ((currentLevel == 9))
-			{
-				_keycardStatus.Visible = false;
-				_keycardIcon.Visible = false;
-				_ui.Visible = false;
-				_cutscene.Visible = true;
-				_dialogueBox.StartCutscene(2);
-				return true;
-			}
-			// invalid level
-			else
-				{
-				GD.Print("current level is already at or somehow greater than numlevels, so i cant load the next level!");
-				return false;
-				}
-		}
-
 		// Purpose: When you go through the door, this function is called right, so we need to check if the helper bot is gonna be there
 		if (GetTree().GetNodesInGroup("helperBot").Count > 0)
 		{
@@ -155,8 +126,75 @@ public class Main : Node
 			}
 		}
 
+		if (currentLevel >= numLevels)
+		{
+			// load endings
+			if ((currentLevel == 7))
+			{
+				// bad ending
+				if (helperBotDestroyed)
+				{
+					currentLevel = 9;
+					_keycardIcon.Visible = false;
+					LoadLevel("Level8b");
+					return;
+				}
+				else
+				{
+				// good ending
+					currentLevel = 8;
+					
+					LoadLevel("Level8a");
+					return;
+				}
+			}
+			// call cutscene
+			if ((currentLevel == 8))
+			{
+				_keycardStatus.Visible = false;
+				_keycardIcon.Visible = false;
+				_ui.Visible = false;
+				_cutscene.Visible = true;
+				_dialogueBox.StartCutscene(1);
+				return;
+			}
+			if ((currentLevel == 9))
+			{
+				_keycardStatus.Visible = false;
+				_keycardIcon.Visible = false;
+				_ui.Visible = false;
+				_cutscene.Visible = true;
+				_dialogueBox.StartCutscene(2);
+				return;
+			}
+			// invalid level
+			else
+			{
+				GD.Print("current level is already at or somehow greater than numlevels, so i cant load the next level!");
+				return;
+			}
+		}
+
+		// CODE MOVED UP
+		// // Purpose: When you go through the door, this function is called right, so we need to check if the helper bot is gonna be there
+		// if (GetTree().GetNodesInGroup("helperBot").Count > 0)
+		// {
+		// 	HelperBot helperBot = GetTree().GetNodesInGroup("helperBot")[0] as HelperBot;
+
+		// 	if (IsInstanceValid(helperBot))
+		// 	{
+		// 		if (helperBot.destroyed)
+		// 		{
+		// 			helperBotDestroyed = true;
+		// 		}
+		// 	}
+		// }
+
+		_animationPlayer.Play("fadeIn");
+		await ToSignal(_animationPlayer, "animation_finished");
 		LoadLevel("Level" + (currentLevel+=1));
-		return true;
+		_animationPlayer.PlayBackwards("fadeIn");
+		return;
 	}
 
 	public void ChangeCutscene(String name){
@@ -214,5 +252,12 @@ public class Main : Node
 				restartConfirmation = 0;
 			}
 		}
+	}
+
+	public void DestroyTileSound()
+	{
+		AudioStreamPlayer destroyTile = GetNode<AudioStreamPlayer>("DestroyTile" + (GD.Randi() % 3 + 1));
+		// AudioStreamPlayer destroyTile = GetNode<AudioStreamPlayer>("DestroyTile2");
+		destroyTile.Play();
 	}
 }

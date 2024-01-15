@@ -49,6 +49,7 @@ public class Level : Node2D
 		{
 			_destructableTilemap.SetCellv(gridPos, -1);
 			_backgroundTilemap.SetCellv(gridPos, 6);
+			_main.DestroyTileSound();
 		}
 
 		if (_indestructableTilemap.GetCellv(gridPos) != TileMap.InvalidCell)

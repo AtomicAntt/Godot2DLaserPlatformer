@@ -1391,7 +1391,7 @@ position = Vector2( -2.99763, -1.00714 )
 rotation = -1.56844
 
 [node name="AnimatedSprite" parent="Path2D/PathFollow2D/Enemy" index="1"]
-frame = 0
+frame = 2
 flip_h = true
 
 [node name="RayCast2D" parent="Path2D/PathFollow2D/Enemy/EnemyLaser2" index="0"]

@@ -1,0 +1,10 @@
+C:\Users\Mikki\Desktop\Godot2DLaserPlatformer\.mono\temp\bin\ExportDebug\Consequence.dll
+C:\Users\Mikki\Desktop\Godot2DLaserPlatformer\.mono\temp\bin\ExportDebug\Consequence.pdb
+C:\Users\Mikki\Desktop\Godot2DLaserPlatformer\.mono\temp\obj\ExportDebug\Consequence.csproj.AssemblyReference.cache
+C:\Users\Mikki\Desktop\Godot2DLaserPlatformer\.mono\temp\obj\ExportDebug\Consequence.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Mikki\Desktop\Godot2DLaserPlatformer\.mono\temp\obj\ExportDebug\Consequence.AssemblyInfoInputs.cache
+C:\Users\Mikki\Desktop\Godot2DLaserPlatformer\.mono\temp\obj\ExportDebug\Consequence.AssemblyInfo.cs
+C:\Users\Mikki\Desktop\Godot2DLaserPlatformer\.mono\temp\obj\ExportDebug\Consequence.csproj.CoreCompileInputs.cache
+C:\Users\Mikki\Desktop\Godot2DLaserPlatformer\.mono\temp\obj\ExportDebug\Consequence.sourcelink.json
+C:\Users\Mikki\Desktop\Godot2DLaserPlatformer\.mono\temp\obj\ExportDebug\Consequence.dll
+C:\Users\Mikki\Desktop\Godot2DLaserPlatformer\.mono\temp\obj\ExportDebug\Consequence.pdb

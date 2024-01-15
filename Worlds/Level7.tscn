@@ -1411,12 +1411,9 @@ tile_data = PoolIntArray( 262140, 15, 0, 196613, 17, 0, 196616, 16, 0, 196625, 2
 [node name="Player" parent="." instance=ExtResource( 14 )]
 position = Vector2( -657, 294 )
 
-[node name="Camera2D" parent="Player" index="1"]
-current = false
-
 [node name="AnimatedSprite" parent="Player" index="3"]
 animation = "Idle"
-frame = 0
+frame = 5
 
 [node name="Keycard2" parent="." instance=ExtResource( 13 )]
 position = Vector2( 2912, 623 )
