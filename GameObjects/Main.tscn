@@ -410,10 +410,11 @@ text = "Helper Bot"
 [node name="Dialogue" type="Label" parent="Levels/CanvasLayer/Control/DialogueBox"]
 margin_left = 8.0
 margin_top = 46.0
-margin_right = 381.0
-margin_bottom = 59.0
+margin_right = 583.0
+margin_bottom = 50024.0
 rect_scale = Vector2( 2, 2 )
 text = "Hello! I have just re-activated you because I want to get outta here!"
+autowrap = true
 
 [node name="Beep1" type="AudioStreamPlayer" parent="Levels/CanvasLayer/Control/DialogueBox"]
 stream = ExtResource( 35 )

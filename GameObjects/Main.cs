@@ -351,7 +351,7 @@ public class Main : Node
 	public void GameOver()
 	{
 		Player player = GetTree().GetNodesInGroup("player")[0] as Player;
-		GetTree().Paused = !GetTree().Paused;
+		// GetTree().Paused = !GetTree().Paused;
 		_gameOverMenu.Visible = !_gameOverMenu.Visible;
 		// _gameMusic.StreamPaused = _gameMusic.StreamPaused;
 		if (GetTree().Paused)
@@ -452,7 +452,7 @@ public class Main : Node
 
 	public void _on_QuitButton_pressed()
 	{
-		// GetTree().Quit();
+		GetTree().Quit();
 		// if (OS.HasFeature("HTML5"))
 		// {
 		// 	GetNode<Label>("Levels/MainMenu/VBoxContainer/QuitButton/Label").Text = "Disabled on Web";
