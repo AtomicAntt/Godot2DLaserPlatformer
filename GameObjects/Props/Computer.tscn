@@ -66,5 +66,7 @@ text = "Press 'e' to recover all damage taken!"
 align = 1
 autowrap = true
 
+[node name="Destroyed" type="AudioStreamPlayer" parent="."]
+
 [connection signal="body_entered" from="." to="." method="_on_Computer_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_Computer_body_exited"]

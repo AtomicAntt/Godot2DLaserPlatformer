@@ -1405,9 +1405,6 @@ position = Vector2( -296, -261 )
 [node name="EnemySmallTurret8" parent="." instance=ExtResource( 4 )]
 position = Vector2( -550, -135 )
 
-[node name="EnemySmallTurret9" parent="." instance=ExtResource( 4 )]
-position = Vector2( -902, -259 )
-
 [node name="EnemySmallTurret10" parent="." instance=ExtResource( 4 )]
 position = Vector2( 10, -517 )
 
@@ -1422,9 +1419,6 @@ position = Vector2( -34, -325 )
 
 [node name="EnemySmallTurret15" parent="." instance=ExtResource( 4 )]
 position = Vector2( 443, -517 )
-
-[node name="EnemySmallTurret16" parent="." instance=ExtResource( 4 )]
-position = Vector2( 467, 59 )
 
 [node name="Path2D" type="Path2D" parent="."]
 curve = SubResource( 92 )
@@ -1503,7 +1497,7 @@ position = Vector2( 2.00452, -0.991028 )
 rotation = -1.56631
 
 [node name="AnimatedSprite" parent="Path2D6/PathFollow2D/Enemy" index="1"]
-frame = 2
+frame = 0
 flip_h = true
 
 [node name="RayCast2D" parent="Path2D6/PathFollow2D/Enemy/EnemyLaser2" index="0"]
@@ -1526,6 +1520,9 @@ position = Vector2( -302, -640 )
 
 [node name="Position2D" type="Position2D" parent="."]
 position = Vector2( -528, 0 )
+
+[node name="Computer2" parent="." instance=ExtResource( 15 )]
+position = Vector2( 16, 32 )
 
 [editable path="Player"]
 [editable path="Path2D6/PathFollow2D/Enemy"]

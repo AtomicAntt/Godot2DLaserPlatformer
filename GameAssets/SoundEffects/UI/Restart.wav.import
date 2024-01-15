@@ -1,0 +1,23 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Restart.wav-33c9280b113f032d6cb4bbce70b3cf32.sample"
+
+[deps]
+
+source_file="res://GameAssets/SoundEffects/UI/Restart.wav"
+dest_files=[ "res://.import/Restart.wav-33c9280b113f032d6cb4bbce70b3cf32.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

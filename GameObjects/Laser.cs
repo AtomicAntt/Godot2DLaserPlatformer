@@ -75,6 +75,8 @@ public class Laser : Node2D
         Visible = true;
         laserShooting = true;
         laserShootingSound.Play();
+
+        chargingParticles.Visible = true;
     }
 
     public void destroyTiles(Vector2 destroyPos)

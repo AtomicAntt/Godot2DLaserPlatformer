@@ -1352,17 +1352,15 @@ tile_data = PoolIntArray( -458780, 21, 0, 65498, 22, 0, 2, 22, 0 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
 position = Vector2( -1199, 39 )
-hasKeycard = true
-laserEnabled = false
 
 [node name="AnimatedSprite" parent="Player" index="3"]
 animation = "Idle"
-frame = 2
+frame = 0
 
 [node name="Door" parent="." instance=ExtResource( 13 )]
 position = Vector2( -241, 32 )
 
 [node name="Boss" parent="." instance=ExtResource( 16 )]
-position = Vector2( -591, 32 )
+position = Vector2( -593, 32 )
 
 [editable path="Player"]

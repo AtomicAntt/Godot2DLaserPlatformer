@@ -22,6 +22,12 @@ public class Main : Node
 	public bool inGame = false;
 
 	[Export]
+	public int totalCount = 0;
+
+	[Export]
+	public int enemyCount = 0;
+
+	[Export]
 	public int currentLevel = 0;
 
 	[Export]
@@ -37,6 +43,12 @@ public class Main : Node
 	private AudioStreamPlayer _mainMenuMusic;
 	private AudioStreamPlayer _hover;
 	private AudioStreamPlayer _confirm;
+	private AudioStreamPlayer _loadNextLevel;
+
+	public AudioStreamPlayer keycardDestroyed;
+	public AudioStreamPlayer restart;
+
+	private Control _pauseMenu;
 
 	public override void _Ready()
 	{
@@ -50,10 +62,16 @@ public class Main : Node
 		_canvasLayer = GetNode<CanvasLayer>("Levels/CanvasLayer");
 		_animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
 
+		keycardDestroyed = GetNode<AudioStreamPlayer>("KeycardDestroyed");
+		restart = GetNode<AudioStreamPlayer>("Restart");
+
 		_gameMusic = GetNode<AudioStreamPlayer>("GameMusic");
 		_mainMenuMusic = GetNode<AudioStreamPlayer>("MainMenuMusic");
 		_hover = GetNode<AudioStreamPlayer>("Hover");
 		_confirm = GetNode<AudioStreamPlayer>("Confirm");
+		_loadNextLevel = GetNode<AudioStreamPlayer>("NextLevel");
+
+		_pauseMenu = GetNode<Control>("Levels/CanvasLayer/PauseMenu");
 
 		_mainMenu.Visible = true;
 		_cutscene.Visible = false;
@@ -112,6 +130,7 @@ public class Main : Node
 	// door calls this
 	public async void LoadNextLevel()
 	{
+		totalCount += enemyCount;
 		// Purpose: When you go through the door, this function is called right, so we need to check if the helper bot is gonna be there
 		if (GetTree().GetNodesInGroup("helperBot").Count > 0)
 		{
@@ -190,6 +209,8 @@ public class Main : Node
 		// 	}
 		// }
 
+		GetNode<Label>("Levels/CanvasLayer/Control/Transition/CenterContainer/Label").Text = "Level " + currentLevel + " completed!";
+		_loadNextLevel.Play();
 		_animationPlayer.Play("fadeIn");
 		await ToSignal(_animationPlayer, "animation_finished");
 		LoadLevel("Level" + (currentLevel+=1));
@@ -230,7 +251,22 @@ public class Main : Node
 
 	public void RestartLevel()
 	{
+		restart.Play();
+		if (currentLevel == 8)
+		{
+			LoadLevel("Level8a");
+		}
+		if (currentLevel == 9)
+		{
+			LoadLevel("Level8b");
+		}
 		LoadLevel("Level" + (currentLevel));
+		enemyCount = 0;
+	}
+
+	public void updateEnemyCount()
+	{
+		enemyCount += 1;
 	}
 
 	public override void _PhysicsProcess(float delta)
@@ -250,6 +286,14 @@ public class Main : Node
 			else
 			{
 				restartConfirmation = 0;
+			}
+
+			Player player = GetTree().GetNodesInGroup("player")[0] as Player;
+			if (Input.IsActionJustPressed("pause") && player.state != Player.States.DEAD)
+			{
+				GetTree().Paused = !GetTree().Paused;
+				_pauseMenu.Visible = !_pauseMenu.Visible;
+				_gameMusic.StreamPaused = !_gameMusic.StreamPaused;
 			}
 		}
 	}

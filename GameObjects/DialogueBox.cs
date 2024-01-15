@@ -14,7 +14,7 @@ public class DialogueBox : NinePatchRect
 	delegate void FinishedText();
 
 	private Label _nameLabel;
-	private Label _dialogueLabel;
+	public Label _dialogueLabel;
 
 	private SceneTreeTween _tween;
 	private SceneTreeTween _boxTween;
@@ -80,7 +80,7 @@ public class DialogueBox : NinePatchRect
 
 	public async void StartLevelText(int level)
 	{
-		// Player player = GetTree().GetNodesInGroup("player")[0] as Player;
+		Player player = GetTree().GetNodesInGroup("player")[0] as Player;
 		// player.DisableMovement(); discontinuing this because apparently it doesnt sync up and work :(
 		switch(level)
 		{
@@ -92,19 +92,37 @@ public class DialogueBox : NinePatchRect
 				StopDialogue();
 				// player.EnableMovement();
 				break;
-			case 2:
-				skippable = true;
-				WriteText("Player", "Hmm, looks like there are enemies in the way..");
-				await ToSignal(this, "ConfirmDialogue");
-				StopDialogue();
-				// player.EnableMovement();
-				break;
+			// case 2:
+			// 	skippable = true;
+			// 	WriteText("Player", "Hmm, looks like there are enemies in the way..");
+			// 	await ToSignal(this, "ConfirmDialogue");
+			// 	StopDialogue();
+			// 	// player.EnableMovement();
+			// 	break;
 			case 8:
 				skippable = true;
 				WriteText("Helper Bot", "We've finally made it. Go on, open the door.");
 				await ToSignal(this, "ConfirmDialogue");
 				StopDialogue();
 				// player.EnableMovement();
+				break;
+			case 9:
+				skippable = true;
+				WriteText("Destroyed Helper Bot", "I can't believe you would do that to me...");
+				await ToSignal(this, "ConfirmDialogue");
+				WriteText("Destroyed Helper Bot", "I should've known better than to trust a faulty prototype...!");
+				await ToSignal(this, "ConfirmDialogue");
+				WriteText("Destroyed Helper Bot", "While you were destroying all those bots back there, I managed to repair most of them and create an army!");
+				await ToSignal(this, "ConfirmDialogue");
+				WriteText("Destroyed Helper Bot", "My bots may be broken, but they still pack a punch!");
+				await ToSignal(this, "ConfirmDialogue");
+				WriteText("Destroyed Helper Bot", "Before I die, I'm taking you down with me!");
+				await ToSignal(this, "ConfirmDialogue");
+				Boss boss = GetTree().GetNodesInGroup("boss")[0] as Boss;
+				boss.startFight();
+				StopDialogue();
+				player.EnableMovement();
+				player.laserEnabled = true;
 				break;
 		}
 

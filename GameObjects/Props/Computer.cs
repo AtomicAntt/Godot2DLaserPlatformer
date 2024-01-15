@@ -68,7 +68,7 @@ public class Computer : Area2D
 		_sprite.Play("Destroyed");
 		canUse = false;
 		destroyed = true;
-		// _shape.Disabled = true;
+		_shape.Disabled = true;
 	}
 
 	public override void _Input(InputEvent @event)

@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/245154__jobro__laser-1-main-loop.ogg-8ee133e1e074f9f290cd7b18fea5ed81.oggstr"
+
+[deps]
+
+source_file="res://GameAssets/SoundEffects/laser/245154__jobro__laser-1-main-loop.ogg"
+dest_files=[ "res://.import/245154__jobro__laser-1-main-loop.ogg-8ee133e1e074f9f290cd7b18fea5ed81.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

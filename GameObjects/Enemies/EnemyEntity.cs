@@ -29,6 +29,8 @@ public class EnemyEntity : KinematicBody2D
 		Level level = GetTree().GetNodesInGroup("level")[0] as Level;
 		level.AddChild(particlesInstance);
 		particlesInstance.GlobalPosition = GlobalPosition;
+		Main main = GetTree().GetNodesInGroup("main")[0] as Main;
+		main.updateEnemyCount();
 		QueueFree();
 	}
 

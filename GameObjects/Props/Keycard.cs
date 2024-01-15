@@ -5,6 +5,7 @@ public class Keycard : Area2D
 {
 	private Player _player;
 
+
 	public override void _Ready()
 	{
 		_player = GetTree().GetNodesInGroup("player")[0] as Player;
@@ -12,8 +13,10 @@ public class Keycard : Area2D
 
 	public void Destroy()
 	{
-		// Main main = GetTree().GetNodesInGroup("main")[0] as Main;
+		Main main = GetTree().GetNodesInGroup("main")[0] as Main;
+		main.keycardDestroyed.Play();
 		// main.CheckKeycardStatus();
+
 		QueueFree();
 	}
 

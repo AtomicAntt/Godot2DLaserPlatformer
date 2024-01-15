@@ -38,4 +38,9 @@ public class EnemyHumanoid : EnemyEntity
 			_velocity = MoveAndSlide(_velocity, Vector2.Up);
 		}
 	}
+	
+	public void setLaser(int speed, int damage){
+		GetNode<EnemyLaser>("EnemyLaser").rotationSpeed = speed;
+		GetNode<EnemyLaser>("EnemyLaser").damage = damage;
+	}
 }
