@@ -11,7 +11,7 @@ Made with Godot Engine v3.5.3
 
 ![image](https://github.com/AtomicAntt/Godot2DLaserPlatformer/assets/89709922/0be4a1b0-d692-4252-8abb-960ac3de05c8)
 
-3rd place from developers rating
+3rd place from developers rating: https://itch.io/jam/goedware-game-jam-10/rate/2471556
 
 ![image](https://github.com/AtomicAntt/Godot2DLaserPlatformer/assets/89709922/7ac15fa9-72cf-4d52-aa72-ea046f33d099)
 
