@@ -1,7 +1,9 @@
 # Godot2DLaserPlatformer
 A 2D Platformer where you shoot a comically large laser to destroy your enemies.. and the level?
 
-Play here: https://atomicant.itch.io/code-laser
+Game link: https://atomicant.itch.io/code-laser
+
+Devlog link: https://atomicant.itch.io/code-laser/devlog/666925/the-development-process-of-code-laser
 
 Made with Godot Engine v3.5.3
 
