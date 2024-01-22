@@ -17,6 +17,8 @@ Made with Godot Engine v3.5.3
 
 ![image](https://github.com/AtomicAntt/Godot2DLaserPlatformer/assets/89709922/7ac15fa9-72cf-4d52-aa72-ea046f33d099)
 
+(These are all out of 40 entries in the jam)
+
 # Building and Running the game
 
 First, install the Godot game engine (3.5.3) [here](https://godotengine.org/download/archive/3.5.3-stable/)
